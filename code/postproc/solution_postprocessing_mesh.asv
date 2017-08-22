@@ -1,0 +1,16 @@
+function         str                           =  solution_postprocessing_mesh(str)
+
+
+for ielem=1:str.n_elem   
+    str.ielem                                  =  ielem;
+    gauss_level_information                    =  gauss_level_information_mixed_formulations(str);
+
+    nodes_x                                    =  str.connectivity(ielem,:);
+    nodes_phi                                  =  str.connectivity(ielem,:);
+    
+    gauss_level_information.Eulerian_x;
+    gauss_level_information.phi;
+
+    
+end
+    

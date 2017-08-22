@@ -1,0 +1,88 @@
+function structure                                                         =  single_element_division_linear_elements(structure)
+
+
+%--------------------------------------------------------------------------
+% hexaedrals and rectangles
+%--------------------------------------------------------------------------
+switch structure.data.shape
+    case 1
+        switch structure.data.dim
+               %-----------------------------------------------------------
+               % 2D case
+               %-----------------------------------------------------------
+               case 2
+                    n_linear_elements                                      =  structure.data.degree^2;
+                    structure.local_linear_connectivity                    =  zeros(n_linear_elements,4);
+                    for ydim=1:structure.data.degree
+                        for xdim=1:structure.data.degree
+                            ielem                                          =  xdim + structure.data.degree*(ydim - 1);
+                            structure.local_connectivity(ielem,1)          =  xdim + (structure.data.degree + 1)*(ydim - 1);
+                            structure.local_connectivity(ielem,2)          =  xdim + (structure.data.degree + 1)*(ydim - 1) + 1;
+                            structure.local_connectivity(ielem,3)          =  xdim + (structure.data.degree + 1)*(ydim - 0);
+                            structure.local_connectivity(ielem,4)          =  xdim + (structure.data.degree + 1)*(ydim - 0) + 1;
+                        end
+                    end            
+               %-----------------------------------------------------------
+               % 3D case
+               %-----------------------------------------------------------
+               case {3,13,23}
+                    n_linear_elements                                      =  structure.data.degree^3;
+                    structure.local_linear_connectivity                    =  zeros(n_linear_elements,8);
+                    for zdim=1:structure.data.degree
+                        for ydim=1:structure.data.degree
+                            for xdim=1:structure.data.degree
+                                ielem                                      =  xdim + structure.data.degree*(ydim - 1) + structure.data.degree^2*(zdim - 1);
+                                structure.local_connectivity(ielem,1)      =  xdim + (structure.data.degree + 1)*(ydim - 1) + (structure.data.degree + 1)^2*(zdim - 1);
+                                structure.local_connectivity(ielem,2)      =  xdim + (structure.data.degree + 1)*(ydim - 1) + (structure.data.degree + 1)^2*(zdim - 1) + 1;
+                                structure.local_connectivity(ielem,3)      =  xdim + (structure.data.degree + 1)*(ydim - 0) + (structure.data.degree + 1)^2*(zdim - 1);
+                                structure.local_connectivity(ielem,4)      =  xdim + (structure.data.degree + 1)*(ydim - 0) + (structure.data.degree + 1)^2*(zdim - 1) + 1;
+                                structure.local_connectivity(ielem,5)      =  xdim + (structure.data.degree + 1)*(ydim - 1) + (structure.data.degree + 1)^2*(zdim - 0);
+                                structure.local_connectivity(ielem,6)      =  xdim + (structure.data.degree + 1)*(ydim - 1) + (structure.data.degree + 1)^2*(zdim - 0) + 1;
+                                structure.local_connectivity(ielem,7)      =  xdim + (structure.data.degree + 1)*(ydim - 0) + (structure.data.degree + 1)^2*(zdim - 0);
+                                structure.local_connectivity(ielem,8)      =  xdim + (structure.data.degree + 1)*(ydim - 0) + (structure.data.degree + 1)^2*(zdim - 0) + 1;
+                            end
+                        end
+                    end
+        end
+%--------------------------------------------------------------------------
+% Triangles and tetrahedrals
+%--------------------------------------------------------------------------
+    case 0
+        switch structure.data.dim
+            case 2
+                 n_linear_even_elements                                    =  sum(1:structure.data.degree);
+                 n_linear_odd_elements                                     =  sum(1:structure.data.degree-1);
+                 structure.local_linear_connectivity                       =  zeros(n_linear_even_elements + n_linear_odd_elements,3);
+                 local_even_linear_connectivity                            =  zeros(n_linear_even_elements,3);
+                 local_odd_linear_connectivity                             =  zeros(n_linear_odd_elements,3);
+                 
+                 ielem                                                     =  0;
+                 added_nodes                                               =  0;
+                 for ydim=1:structure.data.degree
+                     for xdim=1:structure.data.degree - (ydim-1)
+                         ielem                                             =  ielem + 1;
+                         local_even_linear_connectivity(ielem,1)                  =  xdim + added_nodes;
+                         local_even_connectivity(ielem,2)        =  xdim + added_nodes + 1;
+                         local_even_connectivity(ielem,3)        =  xdim + (structure.data.degree + 1)*(ydim - 0);                         
+                     end
+                     added_nodes                                           =  added_nodes + structure.data.degree + 1 - (ydim-1);
+                 end
+                 ielem                                                     =  0;
+                 added_nodes                                               =  structure.data.degree + 1;
+                 former_added_nodes                                        =  0;
+                 for ydim=1:structure.data.degree - 1
+                     for xdim=1:structure.data.degree - 1 - (ydim-1)
+                         ielem                                             =  ielem + 1;
+                         local_odd_connectivity(ielem,1)         =  xdim + added_nodes + 2;
+                         local_odd_connectivity(ielem,2)         =  xdim + added_nodes + 1;
+                         local_odd_connectivity(ielem,3)         =  xdim + former_added_nodes;                         
+                     end
+                     former_added_nodes                                    =  added_nodes;
+                     added_nodes                                           =  added_nodes + structure.data.degree + 1 - (ydim-1);
+                 end
+                 structure.local_connectivity                              =  [local_even_connectivity;local_odd_connectivity];
+            case {3,13,23}
+                % not yet
+        end
+end
+        
