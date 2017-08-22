@@ -15,8 +15,8 @@ fprintf('Begining of static assembly for boundary integrals in the principle of 
 %--------------------------------------------------------------------------
 % Dofs per element and initialisation of indexi, indexj and data
 %--------------------------------------------------------------------------
-% [Kindexi,Kindexj,Kdata,...
-% Tindexi,Tindexj,Tdata]      =  SparseStiffnessPreallocationBoundaryFEM(geom,mesh,formulation);
+[Kindexi,Kindexj,Kdata,...
+Tindexi,Tindexj,Tdata]      =  SparseStiffnessPreallocationBoundaryFEM(str.geometry.dim,str.mesh,str.data.formulation);
 %--------------------------------------------------------------------------
 % Loop over elements for the assembly of resiuals and stiffness matrices
 %--------------------------------------------------------------------------
@@ -30,23 +30,28 @@ for iedge=1:size(str.mesh.surface.x.boundary_edges,2)
     %----------------------------------------------------------------------
     % Sparse assembly
     %----------------------------------------------------------------------
-%     [INDEXI,INDEXJ,DATA]     =  StiffnessSparseAssemblyBoundaryFEM(iedge,str.geometry.dim,str.mesh,element_assembly,str.data.formulation);
-%     initial                  =  n_dofs_elem^2*(ielement-1) +  1;
-%     final                    =  n_dofs_elem^2*ielement;
-%     indexi(initial:final,1)  =  INDEXI;
-%     indexj(initial:final,1)  =  INDEXJ;
-%     data(initial:final,1)    =  DATA;
-%     %----------------------------------------------------------------------
-%     % Assembly of residuals
-%     %----------------------------------------------------------------------
-%     str.assembly             =  VectorsAssemblyBoundaryFEM(iedge,str.geometry.dim,str.mesh,element_assembly,str.assembly,str.data.formulation);
+    [INDEXI,INDEXJ,DATA]     =  StiffnessSparseAssemblyBoundaryFEMOnlyElectro(iedge,str.mesh,element_assembly);
+    Kindexi(:,iedge)         =  INDEXI;
+    Kindexj(:,iedge)         =  INDEXJ;
+    Kdata(:,iedge)           =  DATA;
+    %----------------------------------------------------------------------
+    % Assembly of residuals
+    %----------------------------------------------------------------------
+    [INDEXI,INDEXJ,DATA]     =  VectorsAssemblyBoundaryFEMOnlyElectro(iedge,str.mesh,element_assembly);
+    Tindexi(:,iedge)         =  INDEXI;
+    Tindexj(:,iedge)         =  INDEXJ;
+    Tdata(:,iedge)           =  DATA;
 end     
 toc 
 %--------------------------------------------------------------------------
 % Sparse assembly of the stiffness matrix.      
 %--------------------------------------------------------------------------
 total_dofs                   =  size(str.assembly.K_total,1);
-str.assembly.K_total         =  str.assembly.K_total + sparse(indexi,indexj,data,total_dofs,total_dofs);
+str.assembly.K_total         =  str.assembly.K_total + sparse(Kindexi,Kindexj,Kdata,total_dofs,total_dofs);
+%--------------------------------------------------------------------------
+% Sparse assembly of the residual.       
+%--------------------------------------------------------------------------
+str.assembly.Tinternal       =  str.assembly.Tinternal + sparse(Tindexi,Tindexj,Tdata,total_dofs,1);
 
 fprintf('End of static assembly\n')
 

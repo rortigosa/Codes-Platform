@@ -1,7 +1,7 @@
 function [Kindexi,Kindexj,Kdata,...
 Tindexi,Tindexj,Tdata]    =  SparseStiffnessPreallocationBoundaryFEM(dim,mesh,formulation)
 
-n_edges                   =  size(str.mesh.surface.x.boundary_edges,2);
+n_edges                   =  size(mesh.surface.x.boundary_edges,2);
 switch formulation
     case {'electro_BEM_FEM'}
          n_dofs_elem_phi  =  size(mesh.surface.phi.boundary_edges,1);

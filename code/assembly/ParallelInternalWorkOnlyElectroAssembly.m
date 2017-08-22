@@ -24,7 +24,7 @@ str.assembly    =  GlobalResidualInitialisationFormulation(str.geometry,str.mesh
 % Loop over elements for the assembly of resiuals and stiffness matrices
 %--------------------------------------------------------------------------
 tic     
-parfor ielem=1:str.mesh.volume.n_elem  
+for ielem=1:str.mesh.volume.n_elem  
     %----------------------------------------------------------------------
     % Residuals and stiffness matrices 
     %----------------------------------------------------------------------
@@ -49,10 +49,6 @@ parfor ielem=1:str.mesh.volume.n_elem
 end     
 toc 
 %--------------------------------------------------------------------------
-% Sparse assembly of the residual.             
-%--------------------------------------------------------------------------
-str.assembly.Tinternal    =  sparse(Tindexi,Tindexj,Tdata);
-%--------------------------------------------------------------------------
 % Sparse assembly of the stiffness matrix.          
 %--------------------------------------------------------------------------
 if str.contact.lagrange_multiplier
@@ -61,6 +57,10 @@ else
    total_dofs             =  str.solution.n_dofs;
 end
 str.assembly.K_total      =  sparse(Kindexi,Kindexj,Kdata,total_dofs,total_dofs);
+%--------------------------------------------------------------------------
+% Sparse assembly of the residual.             
+%--------------------------------------------------------------------------
+str.assembly.Tinternal    =  sparse(Tindexi,Tindexj,Tdata,total_dofs,1);
 
 fprintf('End of static assembly\n')
 

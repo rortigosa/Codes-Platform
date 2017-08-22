@@ -9,6 +9,7 @@
 function [INDEXI,INDEXJ,...
             DATA]           =  StiffnessSparseAssemblyInternalWorkOnlyElectro(ielement,mesh,...
                                                                 element_assembly)   
+
 %--------------------------------------------------------------------------
 % phi dof's. 
 %--------------------------------------------------------------------------
@@ -35,5 +36,4 @@ Kphiphi_data                =  newdata;
 INDEXI                      =  Kphiphi_indexi;
 INDEXJ                      =  Kphiphi_indexj;
 DATA                        =  Kphiphi_data;
-end
-
+                                                            

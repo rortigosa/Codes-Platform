@@ -12,7 +12,7 @@ function [INDEXI,INDEXJ,...
 %--------------------------------------------------------------------------
 % phi dof's. 
 %--------------------------------------------------------------------------
-phi_dof                     =  str.mesh.surface.phi.boundary_edges(:,iedge);
+phi_dof                     =  mesh.surface.phi.boundary_edges(:,iedge);
 n_dofs                      =  mesh.volume.phi.n_nodes;
 %--------------------------------------------------------------------------
 %  q0 dof's
