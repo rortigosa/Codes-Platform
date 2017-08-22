@@ -16,7 +16,9 @@ clear all
 % Select jobfolder.
 %--------------------------------------------------------------------------
 %basedir_fem     =  'C:\MECHANICAL_SHELL_CODE_OPTIMISED\';
-basedir_fem      =  'C:\SoftwareDevelopment\NEW_ELECTROMECHANICS_CODE_v2\';
+%basedir_fem     =  'C:\SoftwareDevelopment\NEW_ELECTROMECHANICS_CODE_v2\';
+basedir_fem      =  'C:\SoftwareDevelopment\Codes-Platform\';
+
 
 addpath(genpath(fullfile(basedir_fem,'code')));
 addpath(genpath(fullfile(basedir_fem,'main')));
