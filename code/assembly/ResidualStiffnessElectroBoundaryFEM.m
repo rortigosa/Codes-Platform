@@ -14,6 +14,10 @@ function asmb       =  ResidualStiffnessElectroBoundaryFEM(iedge,dim,quadrature,
 %--------------------------------------------------------------------------
 ngauss              =  size(quadrature.surface.bilinear.Chi,1);
 %--------------------------------------------------------------------------
+% Initialise residuals and stiffness matrices for each element
+%--------------------------------------------------------------------------
+asmb                =  ElementResidualMatricesInitialisationElectroBoundary(geometry,mesh);
+%--------------------------------------------------------------------------
 % Permittivity of vaccum
 %--------------------------------------------------------------------------
 e0                  =  mat_info.vacuum_electric_permittivity;
@@ -126,7 +130,7 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     % Vectorisation of stiffness matrices Kphiq
     %----------------------------------------------------------------------
-    Kphiq           =  -e0*HN_norm(igauss)*(fem.surface.bilinear.phi.N(:,gauss)*fem.surface.BEM_FEM.q0.N(:,igauss)');
+    Kphiq           =  -e0*HN_norm(igauss)*(fem.surface.bilinear.phi.N(:,gauss)*fem.surface.bilinear.q.N(:,igauss)');
     %----------------------------------------------------------------------
     % Stiffness matrices
     %----------------------------------------------------------------------
@@ -134,5 +138,5 @@ for igauss=1:ngauss
     asmb.Kxphi    =  asmb.Kxphi    +  Kxphi*Int_weight;
     asmb.Kxq      =  asmb.Kxq      +  Kxq*Int_weight;    
     asmb.Kphix    =  asmb.Kphix    +  Kphix*Int_weight;
-    asmb.Kphip    =  asmb.Kphip    +  Kphiq*Int_weight;
+    asmb.Kphiq    =  asmb.Kphiq    +  Kphiq*Int_weight;
 end

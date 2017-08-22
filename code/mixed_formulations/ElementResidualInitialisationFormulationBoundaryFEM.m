@@ -1,6 +1,6 @@
-function str                            =  ElementResidualInitialisationFormulationBoundaryFEM(str)
+function str                            =  ElementResidualInitialisationFormulationBoundaryFEM(gem,mesh)
 
-ndof_x                                  =  mesh.dim*mesh.volume.x.n_node_elem;
+ndof_x                                  =  geom.dim*mesh.volume.x.n_node_elem;
 ndof_phi                                =  mesh.volume.phi.n_node_elem;
 ndof_q0                                 =  mesh.surface.q0.n_node_elem;
 %--------------------------------------------------------------------------

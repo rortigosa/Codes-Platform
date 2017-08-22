@@ -3,26 +3,26 @@ function assembly                   =  VectorsAssemblyBoundaryFEM(iedge,dim,mesh
 %-------------------------------------------------------------------------- 
 % x
 %--------------------------------------------------------------------------
-n_nodes_elem                        =  size(mesh.surface.x.boundary_edges,1);
-T1                                  =  repmat(1:dim,n_nodes_elem,1);
-T1                                  =  T1';
-T1                                  =  reshape(T1,dim*n_nodes_elem,1);
+n_nodes_elem     =  size(mesh.volume.x.connectivity,1);
+T1               =  repmat(1:dim,n_nodes_elem,1);
+T1               =  T1';
+T1               =  reshape(T1,dim*n_nodes_elem,1);
 
-nodes                               =  mesh.surface.x.boundary_edges(:,iedge);
-T2                                  =  ((nodes - 1)*dim);
-T2                                  =  repmat(T2,1,dim);
-T2                                  =  T2';
-T2                                  =  reshape(T2,dim*n_nodes_elem,1);
-
-global_x_dof                        =  T1 + T2;
-assembly.Tx(global_x_dof,1)         =  assembly.Tx(global_x_dof,1) + element_assembly.Tx;
+nodes            =  mesh.volume.x.connectivity(:,ielement);
+T2               =  ((nodes - 1)*dim);
+T2               =  repmat(T2,1,dim);
+T2               =  T2';
+T2               =  reshape(T2,dim*n_nodes_elem,1);
 %--------------------------------------------------------------------------
-%  phi
+%  dofs
 %--------------------------------------------------------------------------
-global_phi_dof                      =  mesh.surface.phi.boundary_edges(:,iedge);
-assembly.Tphi(global_phi_dof,1)     =  assembly.Tphi(global_phi_dof,1) + element_assembly.Tphi;         
+global_x_dof     =  T1 + T2;
+global_phi_dof   =  mesh.volume.phi.connectivity(:,ielement) + mesh.volume.x.n_nodes*dim;
 %--------------------------------------------------------------------------
-%  Pressure
+% INDEXI, INDEXJ, DATA
 %--------------------------------------------------------------------------
-global_q_dof                       =  mesh.surface.q.connectivity(:,iedge);
-assembly.Tq(global_q_dof,1)        =  assembly.Tq(global_q_dof,1) + element_assembly.Tq;         
+INDEXI           =  [global_x_dof;...
+                     global_phi_dof];
+INDEXJ           =  ones(size(INDEXI,1),1);
+DATA             =  [element_assembly.Tx;...
+                     element_assembly.Tphi];

@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function str    =  ParallelInternalWorkElectroAssembly(str)    
+function str              =  ParallelInternalWorkElectroAssembly(str)    
 %--------------------------------------------------------------------------
 % Dimension of the problem 
 %--------------------------------------------------------------------------
@@ -14,7 +14,7 @@ fprintf('Begining of static assembly\n')
 %--------------------------------------------------------------------------
 % Initialisation of global residuals and stiffness matrices
 %--------------------------------------------------------------------------
-str.assembly    =  GlobalResidualInitialisationFormulation(str.geometry,str.mesh,str.assembly,str.data.formulation);
+str.assembly              =  GlobalResidualInitialisationFormulation(str.geometry,str.mesh,str.assembly,str.data.formulation);
 %--------------------------------------------------------------------------
 % Dofs per element and initialisation of indexi, indexj and data
 %--------------------------------------------------------------------------

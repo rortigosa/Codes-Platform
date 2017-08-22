@@ -19,7 +19,6 @@ clear all
 %basedir_fem     =  'C:\SoftwareDevelopment\NEW_ELECTROMECHANICS_CODE_v2\';
 basedir_fem      =  'C:\SoftwareDevelopment\Codes-Platform\';
 
-
 addpath(genpath(fullfile(basedir_fem,'code')));
 addpath(genpath(fullfile(basedir_fem,'main')));
 %--------------------------------------------------------------------------
@@ -70,7 +69,7 @@ switch newpreprocessor
          %-----------------------------------------------------------------
          str     =  InitialisationFormulation(str);
          %-----------------------------------------------------------------
-         % Constraints          
+         % Constraints           
          %-----------------------------------------------------------------
          str     =  BoundaryConditionsManager(str);
     case 0
