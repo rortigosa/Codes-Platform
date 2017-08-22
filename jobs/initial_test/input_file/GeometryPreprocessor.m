@@ -20,9 +20,9 @@ switch str.geometry.type
     case 'Structured_Extruded_Hexa_Prism'
           str.geometry.StructuredExtrudedHexaPrism.Lx          =  1;
           str.geometry.StructuredExtrudedHexaPrism.Ly          =  1;
-          str.geometry.StructuredExtrudedHexaPrism.Nx          =  4;
-          str.geometry.StructuredExtrudedHexaPrism.Ny          =  4;
-          str.geometry.StructuredExtrudedHexaPrism.Nz          =  4;
+          str.geometry.StructuredExtrudedHexaPrism.Nx          =  17;
+          str.geometry.StructuredExtrudedHexaPrism.Ny          =  17;
+          str.geometry.StructuredExtrudedHexaPrism.Nz          =  17;
           thickness                                            =  1;
           str.geometry.StructuredExtrudedHexaPrism.thickness   =  repmat(thickness/str.geometry.StructuredExtrudedHexaPrism.Nz,str.geometry.StructuredExtrudedHexaPrism.Nz,1);
           str.geometry.dim                                     =  3;
