@@ -29,7 +29,7 @@ str.jobfolder    =  input.jobfolder;
 %--------------------------------------------------------------------------
 % New preprocessor or load former one
 %--------------------------------------------------------------------------
-newpreprocessor  =  0;
+newpreprocessor  =  1;
 switch newpreprocessor
     case 1
          %-----------------------------------------------------------------

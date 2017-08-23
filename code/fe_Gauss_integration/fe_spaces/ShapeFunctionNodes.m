@@ -48,8 +48,8 @@ str.fem.surface.nodes.q.DN_chi           =  DN_chi;
 iso_coordinates                          =  IsoparametricCoordinatesNodesElem(str.fem.shape,str.fem.degree.q,str.geometry.dim-1);
 new_str.quadrature.Chi                   =  iso_coordinates;
 [N,DN_chi]                               =  ShapeFunctionComputation(str.fem.shape,str.fem.degree.x,str.geometry.dim-1,new_str.quadrature);
-str.fem.surface.nodes.x.N_q              =  N;
-str.fem.surface.nodes.x.DN_q_chi         =  DN_chi;
+str.fem.surface.nodes.phi.N_q            =  N;
+str.fem.surface.nodes.phi.DN_q_chi       =  DN_chi;
     case {'electro_mechanics_BEM_FEM','electro_mechanics_incompressible_BEM_FEM','electro_mechanics_mixed_incompressible_BEM_FEM'}
 iso_coordinates                          =  IsoparametricCoordinatesNodesElem(str.fem.shape,str.fem.degree.q,str.geometry.dim);
 new_str.quadrature.Chi                   =  iso_coordinates;

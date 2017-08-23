@@ -28,5 +28,5 @@ switch str.data.formulation
           %----------------------------------------------------------------
           % Boundary integrals due to the Boundary Element Method
           %----------------------------------------------------------------
-          str           =  BoundaryIntegralsOnlyElectroBEM(str);
+          str           =  BoundaryIntegralsBEMOnlyElectro(str);
 end
