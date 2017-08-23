@@ -37,8 +37,8 @@ str.data.analysis                            =  'static';
 %  Finite element
 %--------------------------------------------------------------------------
 str.fem.shape                                =  1;
-str.fem.degree.x                             =  2;  %  Finite Element interpolation order for displacements
-str.fem.degree.phi                           =  2;  %  Finite Element interpolation order for displacements
+str.fem.degree.x                             =  1;  %  Finite Element interpolation order for displacements
+str.fem.degree.phi                           =  1;  %  Finite Element interpolation order for displacements
 str.fem.degree.pressure                      =  1;  % degree of interpolation for the pressure
 str.fem.shape                                =  1;  %  0 is triangular (or tetrahedral) and 1 is quadrilateral (or cubic)
 str.fem.degree.postprocessing                =  2;
@@ -68,7 +68,7 @@ str.fem.degree.d_continuity                  =  'continuous';
 str.fem.degree.d_continuity                  =  'discontinuous';
 switch str.data.formulation
     case {'electro_BEM_FEM','electro_incompressible_BEM_FEM','electro_mixed_incompressible_BEM_FEM'}
-         str.fem.degree.q                    =  1;
+         str.fem.degree.q                    =  0;
          str.fem.surface.BEM_FEM.continuity  =  0;
 end
 %--------------------------------------------------------------------------

@@ -23,6 +23,10 @@ end
 %--------------------------------------------------------------------------
 ngauss              =  size(quadrature.surface.BEM_FEM.Chi,1);
 %--------------------------------------------------------------------------
+% Initialisation of element residuals and stiffness matrices
+%--------------------------------------------------------------------------
+asmb                =  ElementResidualInitialisationFormulationBoundaryBEMOnlyElectro(mesh);
+%--------------------------------------------------------------------------
 % Coordinate of the collocation point and the Gauss points in the boundary
 %--------------------------------------------------------------------------
 xedge               =  solution.x.Lagrangian_X(:,mesh.surface.x.boundary_edges(:,iedge));
@@ -69,7 +73,7 @@ kinematics          =  KinematicsFunctionSurface(dim,...
                           solution.x.Lagrangian_X(:,mesh.surface.phi.boundary_edges(:,iedge)),...
                           solution.x.Lagrangian_X(:,mesh.surface.phi.volume_elements(:,iedge)),...
                           fem.surface.BEM_FEM.phi.N,fem.surface.BEM_FEM.phi.DN_chi);                                         
-HN                  =  MatrixVectorMultiplication(kinematics.H,kinematics.Normal_vector);
+HN                  =  MatrixVectorMultiplication(dim,ngauss,kinematics.H,kinematics.Normal_vector);
 HN_norm             =  VectorNorm(HN);
 %--------------------------------------------------------------------------
 % Required vectorisations 
@@ -85,7 +89,7 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     % Integration weight
     %----------------------------------------------------------------------
-    Int_weight      =  (kinematics.DX_chi_Jacobian(igauss))*str.quadrature.surface.BEM_FEM.W_v(igauss);
+    Int_weight      =  (kinematics.DX_chi_Jacobian(igauss))*quadrature.surface.BEM_FEM.W_v(igauss);
     %----------------------------------------------------------------------
     % Residual for q.
     %----------------------------------------------------------------------
@@ -107,15 +111,15 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     % Integration weight
     %----------------------------------------------------------------------
-    Int_weight      =  (kinematics.DX_chi_Jacobian(igauss))*str.quadrature.surface.BEM_FEM.W_v(igauss);
+    Int_weight      =  (kinematics.DX_chi_Jacobian(igauss))*quadrature.surface.BEM_FEM.W_v(igauss);
     %----------------------------------------------------------------------
     % Vectorisation of stiffness matrices Kqphi
     %----------------------------------------------------------------------
-    Kqphi           =  (dVdx(:,igauss)'*HN(:,igauss))*fem.surface.BEM_FEM.phi.N(:,igauss);
+    Kqphi           =  (dVdx(:,igauss)'*HN(:,igauss))*fem.surface.BEM_FEM.phi.N(:,igauss)';
     %----------------------------------------------------------------------
     % Vectorisation of stiffness matrices Kqq
     %----------------------------------------------------------------------
-    Kqq             =  -V(igauss)*HN_norm(igauss)*fem.surface.BEM_FEM.q.N(:,igauss);
+    Kqq             =  -V(igauss)*HN_norm(igauss)*fem.surface.BEM_FEM.q.N(:,igauss)';
     %----------------------------------------------------------------------
     % Stiffness matrices
     %----------------------------------------------------------------------
@@ -126,5 +130,5 @@ end
 % Stiffness matrix Kqphiprime
 %--------------------------------------------------------------------------
 if iedge==1
-   asmb.Kqphiprime  =  -dim_factor*fem.surface.nodes.phi.N_q(:,local_node);
+   asmb.Kqphiprime  =  -dim_factor*fem.surface.nodes.phi.N_q(:,local_node)';
 end

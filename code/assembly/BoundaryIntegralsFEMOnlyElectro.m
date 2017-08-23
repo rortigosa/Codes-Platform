@@ -21,7 +21,7 @@ Tindexi,Tindexj,Tdata]      =  SparseStiffnessPreallocationBoundaryFEM(str.geome
 % Loop over elements for the assembly of resiuals and stiffness matrices
 %--------------------------------------------------------------------------
 tic     
-for iedge=1:size(str.mesh.surface.x.boundary_edges,2)
+parfor iedge=1:size(str.mesh.surface.x.boundary_edges,2)
     %----------------------------------------------------------------------
     % Residuals and stiffness matrices
     %----------------------------------------------------------------------
