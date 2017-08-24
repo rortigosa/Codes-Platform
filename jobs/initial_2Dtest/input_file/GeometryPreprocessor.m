@@ -2,7 +2,7 @@
 
 function str                =  GeometryPreprocessor(str)
 
-str.geometry.type           =  'Structured_Extruded_Hexa_Prism';
+str.geometry.type           =  'Structured_Quad_Rectangle';
 
 switch str.geometry.type
     case 'Structured_Triad_Rectangle'    

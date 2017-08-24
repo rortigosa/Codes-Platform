@@ -55,7 +55,7 @@ str.assembly.K_total         =  str.assembly.K_total + sparse(indexi,indexj,data
 
 fprintf('End of static assembly\n')
 
-end
+end 
 
 
 

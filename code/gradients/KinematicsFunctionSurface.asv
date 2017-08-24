@@ -32,6 +32,7 @@ for igauss=1:n_gauss
     DX_chi                              =  X_elem*DN_chi_complete(:,:,igauss)';    
     %Normal_vector                      =  CrossProduct(dim,DX_chi(:,1),DX_chi(:,2));  
     Normal_vector                       =  NormalVectorSurface(dim,DX_chi(:,1),DX_chi(:,2));  
+    Normal_vector                       =  Normal_vector/norm(Normal_vector);
     Normal_vector                       =  sign(Normal_vector'*r)*Normal_vector;    
     DX_chi(:,dim)                       =  Normal_vector;
     DN_X                                =  (DX_chi')\DN_chi_complete(:,:,igauss);
@@ -40,8 +41,9 @@ for igauss=1:n_gauss
     % Invertible deformation gradient tensor
     %----------------------------------------------------------------------
     Dx_chi                              =  X_elem*DN_chi_complete(:,:,igauss)';    
-    normal_vector                       =  NormalVectorSurface(dim,Dx_chi(:,1),Dx_chi(:,2));  
-    normal_vector                       =  sign(normal_vector'*r)*normal_vector;    
+    normal_vector                       =  cross(Dx_chi(:,1),Dx_chi(:,2));  
+    normal_vector                       =  normal_vector/norm(normal_vector);
+    normal_vector                       =  sign(Normal_vector'*r)*normal_vector;        
     Finvertible                         =  Dx0DX + normal_vector*Normal_vector';
     FminusT                             =  (Finvertible\eye(dim))';
     %----------------------------------------------------------------------

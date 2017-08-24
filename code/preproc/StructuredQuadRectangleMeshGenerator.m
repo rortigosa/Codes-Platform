@@ -44,7 +44,9 @@ switch degree
          end
 end
 
-
+nodes                                =  nodes';
+nodes(3,:)                           =  [];
+connectivity                         =  connectivity';
 
 
 

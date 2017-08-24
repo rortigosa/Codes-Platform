@@ -27,7 +27,7 @@ addpath(genpath(fullfile(basedir_fem,'main')));
 input            =  ExampleSelection(basedir_fem);
 str.jobfolder    =  input.jobfolder;
 %--------------------------------------------------------------------------
-% New preprocessor or load former one
+% New preprocessor or load former one 
 %--------------------------------------------------------------------------
 newpreprocessor  =  1;
 switch newpreprocessor
@@ -41,7 +41,7 @@ switch newpreprocessor
          %-----------------------------------------------------------------
          str     =  InitialData(str);
          %-----------------------------------------------------------------
-         % Geometry preprocessor  
+         % Geometry preprocessor   
          %-----------------------------------------------------------------
          str     =  GeometryPreprocessor(str); 
          %-----------------------------------------------------------------
@@ -49,11 +49,11 @@ switch newpreprocessor
          %-----------------------------------------------------------------
          str     =  GetQuadratureRules(str); 
          %-----------------------------------------------------------------
-         % Finite Element shape functions
+         % Finite Element shape functions 
          %-----------------------------------------------------------------
          str     =  FEMShapeFunctions(str);
          %-----------------------------------------------------------------
-         % Model geometrical information.
+         % Model geometrical information. 
          %-----------------------------------------------------------------
          str     =  MeshGenerationFormulation(str);
          %-----------------------------------------------------------------
@@ -76,7 +76,7 @@ switch newpreprocessor
 load('saved_preprocessor.mat');     
 end  
 %--------------------------------------------------------------------------
-% Solver                                                                                           
+% Solver                                                                                             
 %-------------------------------------------------------------------------- 
 Solver(str);
  

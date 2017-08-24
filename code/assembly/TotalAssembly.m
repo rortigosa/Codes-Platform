@@ -26,7 +26,7 @@ str                             =  BEMFEMContributionAssembly(str);
 str                             =  StiffnessMatrixTotalAssembly(str);
 str                             =  ParallelResidualsTotalAssembly(str);
 %--------------------------------------------------------------------------
-% Add contact contribution
+% Add contact contribution 
 %--------------------------------------------------------------------------
 if str.contact.lagrange_multiplier
     str.assembly.total_force    =  [str.assembly.total_force;str.assembly.Tcontact_multiplier]; 

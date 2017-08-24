@@ -12,6 +12,7 @@ function [N,DN_chi]                     =  ShapeFunctionComputation(shape,degree
 % Compute symbolic shape functions
 %--------------------------------------------------------------------------
 [symbN,symbDN_chi]                      =  SymbolicShapeFunctions(shape,degree,dimension);
+symbDN_chi                              =  sym(symbDN_chi);
 %--------------------------------------------------------------------------
 % Compute shape functions at the Gauss points. 
 %--------------------------------------------------------------------------

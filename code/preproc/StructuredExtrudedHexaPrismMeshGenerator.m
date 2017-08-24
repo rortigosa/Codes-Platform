@@ -3,6 +3,7 @@ function [nodes_3D,...
                                                                  Nx,Ny,Nz,thickness,Nshape)
 
 [nodes,connectivity]           =  StructuredQuadRectangleMeshGenerator(degree,Lx,Ly,Nx,Ny);
-[nodes_3D,connectivity_3D]     =  ThreeDSolidShellReconstruction(nodes',connectivity',degree,Nz,thickness,Nshape);
+nodes                          =  [nodes;zeros(1,size(nodes,2))];
+[nodes_3D,connectivity_3D]     =  ThreeDSolidShellReconstruction(nodes,connectivity,degree,Nz,thickness,Nshape);
 
 
