@@ -14,8 +14,8 @@ switch str.geometry.type
     case 'Structured_Quad_Rectangle'    
           str.geometry.StructuredQuadRectangle.Lx   =  1;
           str.geometry.StructuredQuadRectangle.Ly   =  1;
-          str.geometry.StructuredQuadRectangle.Nx   =  80;
-          str.geometry.StructuredQuadRectangle.Ny   =  80;
+          str.geometry.StructuredQuadRectangle.Nx   =  40;
+          str.geometry.StructuredQuadRectangle.Ny   =  40;
           str.geometry.dim                          =  2;
     case 'Structured_Extruded_Hexa_Prism'
           str.geometry.StructuredExtrudedHexaPrism.Lx          =  1;

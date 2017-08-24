@@ -21,14 +21,13 @@ fprintf('Begining of static assembly for BEM integral\n')
 %--------------------------------------------------------------------------
 [Kindexi,Kindexj,Kdata,...
 Tindexi,Tindexj,Tdata,...
-BIKindexi,BIKindexj,BIKdata,...
-BITindexi,BITindexj,BITdata]           =  SparseStiffnessPreallocationBoundaryBEM(str.geometry.dim,str.mesh,str.data.formulation);
+BIindexi,BIindexj,BIdata]           =  SparseStiffnessPreallocationBoundaryBEM(str.geometry.dim,str.mesh,str.data.formulation);
 %--------------------------------------------------------------------------
 % Loop over collocation points
 %--------------------------------------------------------------------------
 tic     
 for inode=1:str.mesh.surface.q.n_nodes
-    for iedge=1:size(str.mesh.surface.x.boundary_edges,2)
+    parfor iedge=1:size(str.mesh.surface.x.boundary_edges,2)
         %------------------------------------------------------------------
         % Residuals and stiffness matrices
         %------------------------------------------------------------------
@@ -38,23 +37,23 @@ for inode=1:str.mesh.surface.q.n_nodes
         % Sparse assembly 
         %------------------------------------------------------------------
         [INDEXI,INDEXJ,DATA]     =  StiffnessSparseAssemblyBoundaryBEMOnlyElectro(inode,str.geometry.dim,iedge,str.mesh,element_assembly);                                                                      
-        BIKindexi(:,iedge)       =  INDEXI;
-        BIKindexj(:,iedge)       =  INDEXJ;
-        BIKdata(:,iedge)         =  DATA;
+        Kindexi(:,inode,iedge)   =  INDEXI;
+        Kindexj(:,inode,iedge)   =  INDEXJ;
+        Kdata(:,inode,iedge)     =  DATA;        
         %------------------------------------------------------------------
         % Assembly of residuals
         %------------------------------------------------------------------
         [INDEXI,INDEXJ,DATA]     =  SparseVectorsAssemblyBoundaryBEMOnlyElectro(inode,str.mesh,element_assembly);
-        BITindexi(:,iedge)        =  INDEXI;
-        BITindexj(:,iedge)        =  INDEXJ;
-        BITdata(:,iedge)          =  DATA;
+%         Tindexi(:,dofs)          =  INDEXI;
+%         Tindexj(:,dofs)          =  INDEXJ;
+%         Tdata(:,dofs)            =  DATA;
+        BIindexi(:,iedge)        =  INDEXI;
+        BIindexj(:,iedge)        =  INDEXJ;
+        BIdata(:,iedge)          =  DATA;
     end
-    Kindexi(:,inode)             =  BIKindexi(:);
-    Kindexj(:,inode)             =  BIKindexj(:);
-    Kdata(:,inode)               =  BIKdata(:);
-    Tindexi(:,inode)             =  BITindexi(:);
-    Tindexj(:,inode)             =  BITindexj(:);
-    Tdata(:,inode)               =  BITdata(:);
+    Tindexi(:,inode)             =  BIindexi;
+    Tindexj(:,inode)             =  BIindexj;
+    Tdata(:,inode)               =  BIdata;
 end     
 toc 
 %--------------------------------------------------------------------------

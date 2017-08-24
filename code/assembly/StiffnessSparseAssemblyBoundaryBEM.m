@@ -12,7 +12,7 @@ function [INDEXI,INDEXJ,...
 %--------------------------------------------------------------------------
 % x dof's. 
 %--------------------------------------------------------------------------
-x_nodes                     =  str.mesh.surface.x.boundary_edges(:,iedge)';
+x_nodes                     =  mesh.surface.x.boundary_edges(:,iedge)';
 x_dof                       =  zeros(dim,size(x_nodes,2));
 for idim=1:dim
     x_dof(idim,:)           =  (x_nodes-1)*dim + idim;
@@ -22,18 +22,20 @@ n_dofs                      =  mesh.dim*mesh.volume.x.n_nodes;
 %--------------------------------------------------------------------------
 % phi dof's. 
 %--------------------------------------------------------------------------
-phi_dof                     =  str.mesh.surface.phi.boundary_edges(:,iedge);
+phi_dof                     =  mesh.surface.phi.boundary_edges(:,iedge);
 phi_dof                     =  n_dofs + phi_dof;
 %--------------------------------------------------------------------------
-%  phiprime dof's
+%  phiprime and qprime dof's
 %--------------------------------------------------------------------------
 if iedge==1
-   connectivity             =  str.mesh.surface.q0.connectivity;
-   [local_node,q0_elem]     =  find(connectivity==inode);
-   q0_elem                  =  q0_elem(1);
-   phiprime_dof             =  mesh.surface.phi.boundary_edges(:,q0_elem);
+   connectivity             =  mesh.surface.q0.connectivity;
+   [local_node,q_elem]      =  find(connectivity==inode);
+   q_elem                   =  q_elem(1);
+   phiprime_dof             =  mesh.surface.phi.boundary_edges(:,q_elem);
+   qprime_dof               =  mesh.surface.q.connectivity(local_node,q_elem);
 else
    phiprime_dof             =  []; 
+   qprime_dof               =  [];
 end    
 n_dofs                      =  n_dofs + mesh.volume.phi.n_nodes;
 %--------------------------------------------------------------------------

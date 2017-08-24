@@ -47,11 +47,11 @@ toc
 % Sparse assembly of the stiffness matrix.      
 %--------------------------------------------------------------------------
 total_dofs                   =  size(str.assembly.K_total,1);
-str.assembly.K_total         =  str.assembly.K_total + sparse(Kindexi,Kindexj,Kdata,total_dofs,total_dofs);
+str.assembly.K_total         =  str.assembly.K_total + sparse(Kindexi(:),Kindexj(:),Kdata(:),total_dofs,total_dofs);
 %--------------------------------------------------------------------------
 % Sparse assembly of the residual.       
 %--------------------------------------------------------------------------
-str.assembly.Tinternal       =  str.assembly.Tinternal + sparse(Tindexi,Tindexj,Tdata,total_dofs,1);
+str.assembly.Tinternal       =  str.assembly.Tinternal + sparse(Tindexi(:),Tindexj(:),Tdata(:),total_dofs,1);
 
 fprintf('End of static assembly\n')
 

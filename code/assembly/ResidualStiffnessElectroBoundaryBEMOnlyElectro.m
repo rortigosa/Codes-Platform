@@ -35,13 +35,17 @@ xGauss              =  VectorFEMInterpolation(ngauss,fem.surface.BEM_FEM.phi.N,x
 % Find one of the elements that xprime belongs to and its local numbering
 % within that element
 %--------------------------------------------------------------------------
+%local_node         =  local_node(1);
+%q_elem             =  q_elem(1);
+%xprime_elem        =  solution.x.Lagrangian_X(:,mesh.surface.x.boundary_edges(:,q_elem));
+%%xprime            =  VectorFEMInterpolation(ngauss,fem.surface.nodes.x.N_q(:,local_node),xprime_elem);
+%xprime             =  VectorFEMInterpolation(1,fem.surface.nodes.phi.N_q(:,local_node),xprime_elem);
+%[local_node,q_elem] =  unique(find(connectivity==inode));
 connectivity        =  mesh.surface.q.connectivity;
-[local_node,q_elem] =  find(connectivity==inode);
-local_node          =  local_node(1);
-q_elem              =  q_elem(1);
-xprime_elem         =  solution.x.Lagrangian_X(:,mesh.surface.x.boundary_edges(:,q_elem));
-%xprime             =  VectorFEMInterpolation(ngauss,fem.surface.nodes.x.N_q(:,local_node),xprime_elem);
-xprime              =  VectorFEMInterpolation(1,fem.surface.nodes.phi.N_q(:,local_node),xprime_elem);
+q_elem              =  ceil(find(connectivity==inode)/dim);
+local_node          =  find(mesh.surface.q.connectivity(:,q_elem(1))==inode);
+xprime_elem         =  solution.x.Lagrangian_X(:,mesh.surface.x.boundary_edges(:,q_elem(1)));
+xprime              =  VectorFEMInterpolation(1,fem.surface.nodes.phi.N_q(:,local_node(1)),xprime_elem);
 %--------------------------------------------------------------------------
 % Distance between xGauss and xprime
 %--------------------------------------------------------------------------
@@ -58,11 +62,13 @@ dVdx                =  DiffLaplaceFundamentalSolution(dim,r,r_norm);
 %--------------------------------------------------------------------------
 phiedge             =  solution.phi(mesh.surface.phi.boundary_edges(:,iedge));
 phiGauss            =  ScalarFEMInterpolation(fem.surface.BEM_FEM.phi.N,phiedge);
-phiprime_elem       =  solution.phi(mesh.surface.phi.boundary_edges(:,q_elem));
-%phiprime           =  VectorFEMInterpolation(ngauss,fem.surface.nodes.phi.N_q(:,local_node),phiprime_elem);
-phiprime            =  ScalarFEMInterpolation(fem.surface.nodes.phi.N_q(:,local_node),phiprime_elem);
+%phiprime_elem      =  solution.phi(mesh.surface.phi.boundary_edges(:,q_elem));
+%%phiprime          =  VectorFEMInterpolation(ngauss,fem.surface.nodes.phi.N_q(:,local_node),phiprime_elem);
+%phiprime           =  ScalarFEMInterpolation(fem.surface.nodes.phi.N_q(:,local_node),phiprime_elem);
+phiprime_elem       =  solution.phi(mesh.surface.phi.boundary_edges(:,q_elem(1)));
+phiprime            =  ScalarFEMInterpolation(fem.surface.nodes.phi.N_q(:,local_node(1)),phiprime_elem);
 %--------------------------------------------------------------------------
-% Obtain the value of the flux field q0
+% Obtain the value of the flux field q0 
 %--------------------------------------------------------------------------
 q                   =  ScalarFEMInterpolation(fem.surface.BEM_FEM.q.N,solution.q(mesh.surface.q.connectivity(:,iedge)));
 %--------------------------------------------------------------------------
@@ -131,5 +137,5 @@ end
 % Stiffness matrix Kqphiprime
 %--------------------------------------------------------------------------
 if iedge==1
-   asmb.Kqphiprime  =  -dim_factor*fem.surface.nodes.phi.N_q(:,local_node)';
+   asmb.Kqphiprime  =  -dim_factor*fem.surface.nodes.phi.N_q(:,local_node(1))';
 end
