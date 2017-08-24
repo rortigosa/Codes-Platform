@@ -42,10 +42,9 @@ switch str.data.formulation
          [boundary_edges,volume_elements,... 
           boundary_nodes]                          =  BoundaryElementsNodesDefinition(str.fem.degree.q,str.mesh.volume.q.connectivity,str.fem.shape,str.geometry.dim);         
          new_nodes                                 =  zeros(max(boundary_nodes),1);
-         new_nodes(boundary_nodes)                 =  (1:length(boundary_nodes));
-         boundary_edges                            =  new_nodes(boundary_edges);
+         boundary_edges__                          =  new_nodes(boundary_edges);
          switch str.fem.surface.BEM_FEM.continuity
-             case 0 
+             case 0
                   q_nodes_continuous               =  str.mesh.volume.q.nodes;
                   q_connectivity_continuous        =  boundary_edges;                 
                   [nodes,connectivity]             =  DiscontinuousMeshing(q_nodes_continuous,q_connectivity_continuous);

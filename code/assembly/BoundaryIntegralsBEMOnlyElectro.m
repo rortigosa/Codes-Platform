@@ -24,7 +24,7 @@ fprintf('Begining of static assembly for BEM integral\n')
 % Loop over collocation points
 %--------------------------------------------------------------------------
 tic     
-for inode=1:str.mesh.surface.q.n_nodes
+parfor inode=1:str.mesh.surface.q.n_nodes
     for iedge=1:size(str.mesh.surface.x.boundary_edges,2)
         %------------------------------------------------------------------
         % Residuals and stiffness matrices
@@ -48,7 +48,7 @@ for inode=1:str.mesh.surface.q.n_nodes
 end     
 toc 
 %--------------------------------------------------------------------------
-% Sparse assembly of the stiffness matrix.      
+% Sparse assembly of the stiffness matrix.        
 %--------------------------------------------------------------------------
 total_dofs                   =  size(str.assembly.K_total,1);
 str.assembly.K_total         =  str.assembly.K_total + sparse(indexi,indexj,data,total_dofs,total_dofs);
