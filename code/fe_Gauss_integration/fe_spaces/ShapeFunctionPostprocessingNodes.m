@@ -127,6 +127,10 @@ switch str.data.formulation
          [N,DN_chi]                               =  ShapeFunctionComputation(str.fem.shape,str.fem.degree.phi,str.geometry.dim,new_str.quadrature);
          str.fem.postprocessing.phi.N             =  N;
          str.fem.postprocessing.phi.DN_chi        =  DN_chi;
+    case {'electro'}
+         [N,DN_chi]                               =  ShapeFunctionComputation(str.fem.shape,str.fem.degree.phi,str.geometry.dim,new_str.quadrature);
+         str.fem.postprocessing.phi.N             =  N;
+         str.fem.postprocessing.phi.DN_chi        =  DN_chi;
 end
 
 

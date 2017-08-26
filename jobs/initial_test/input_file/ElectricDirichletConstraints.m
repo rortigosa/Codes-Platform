@@ -25,7 +25,7 @@ presc1                   =  zeros(str.mesh.volume.phi.n_nodes,1);
 zmed                     =  (min(str.mesh.volume.phi.nodes(3,:)) + max(str.mesh.volume.phi.nodes(3,:)))/2;
 for inode=1:str.mesh.volume.phi.n_nodes
     x                    =  str.mesh.volume.phi.nodes(:,inode);
-    if (x(3) - zmed)<1e-6
+    if abs(x(3) - zmed)<1e-6
        nodes1(inode)     =  inode;
        presc1(inode)     =  0;
     end 

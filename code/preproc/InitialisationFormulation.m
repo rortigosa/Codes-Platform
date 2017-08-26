@@ -16,7 +16,7 @@ str            =  InitialisedFields(str);
 % Initialise constant contributions the mass matrix
 %--------------------------------------------------------------------------  
 switch str.data.formulation
-    case 'electro_BEM_FEM'
+    case {'electro_BEM_FEM','electro'}
     otherwise
 str.assembly   =  ConstantMassMatrices(str.geometry,str.mesh,str.fem,str.quadrature);
 str            =  MassMatricesAssembly(str);

@@ -14,7 +14,7 @@ function [freedof,fixdof]  =  DeterminationVariableFreeFixedDofs(str)
 % Determination of the new free and fixed dofsx considering the active set 
 % due to a contact problem
 %--------------------------------------------------------------------------
-[freedof,fixdof]       =  DeterminationDofsContact(str.contact,str.solution,str.bc,str.NR.NR_iteration);
+[freedof,fixdof]       =  DeterminationDofsContact(str.contact,str.solution,str.bc,str.NR.iteration);
 %--------------------------------------------------------------------------
 % For the future, we might include fracture...
 %--------------------------------------------------------------------------

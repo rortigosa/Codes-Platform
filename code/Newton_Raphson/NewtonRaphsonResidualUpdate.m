@@ -17,7 +17,7 @@ str                       =  NeumannBcs(str);
 % Initialise the residual
 %--------------------------------------------------------------------------
 str.assembly.Residual     =  str.assembly.total_force;
-dofs                      =  str.mesh.dimesion.volume.x.n_nodes + str.mesh.volume.phi.n_nodes;        
+dofs                      =  (1:size(str.bc.Neumann.force_vector,1))';        
 %--------------------------------------------------------------------------
 % Compute the residual for static or dynamic simulations
 %--------------------------------------------------------------------------

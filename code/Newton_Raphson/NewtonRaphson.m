@@ -30,7 +30,7 @@ while str.NR.accumulated_factor<0.99
     %----------------------------------------------------------------------    
     Residual_dimensionless        =  1e8;  
     str.NR.iteration              =  0;
-    nonconvergence_criteria       =  Residual_dimensionless>str.Newton_Raphson.tolerance;
+    nonconvergence_criteria       =  Residual_dimensionless>str.NR.tolerance;
     while nonconvergence_criteria    
         tic  
         str.NR.iteration          =  str.NR.iteration + 1;
@@ -51,8 +51,8 @@ while str.NR.accumulated_factor<0.99
         %------------------------------------------------------------------
         % checking for convergence.                                                                                                                 
         %------------------------------------------------------------------
-        [str.NR,...
-         Residual_dimensionless]  =  NewtonRaphsonConvergence(str.NR,str.assembly,str.bc);
+        [str.NR,Residual_dimensionless,...
+            str.assembly]         =  NewtonRaphsonConvergence(str.NR,str.assembly,str.bc);
         %------------------------------------------------------------------
         % screen ouput for current Newton-Raphson iteration.                                 
         %------------------------------------------------------------------

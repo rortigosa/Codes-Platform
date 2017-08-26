@@ -6,13 +6,14 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function [NR,Residual_dimensionless]  =  NewtonRaphsonConvergence(NR,assembly,bc)
+function [NR,...
+    Residual_dimensionless,assembly]  =  NewtonRaphsonConvergence(NR,assembly,bc)
  
 %--------------------------------------------------------------------------
 % Initialise the dimensionless residual
 %--------------------------------------------------------------------------
 NR.convergence_warning                =  'desactivated';
-if newton_raphson_iteration>1 
+if NR.iteration>1 
    oldResidual_dimensionless          =  assembly.Residual_stored{NR.incr_load}(NR.iteration-1);
 else
    oldResidual_dimensionless          =  1; 
@@ -21,13 +22,13 @@ end
 % Store the residual
 %--------------------------------------------------------------------------
 if NR.iteration == 1   
-    NR.convergence_factor                                  =  norm(assembly.Residual(bc.freedof));
+    NR.convergence_factor                                  =  norm(assembly.Residual(bc.Dirichlet.freedof));
     Residual_dimensionless                                 =  1;
     assembly.Residual_stored{NR.incr_load}(NR.iteration)   =  Residual_dimensionless;
 elseif NR.iteration>1
-    assembly.Residual_stored{NR.incr_load}(NR.iteration)   =  norm(assembly.Residual(bc.freedof))/NR.convergence_factor;
-    Residual_dimensionless                                 =  assembly.Residual_stored{incr_load}(NR.iteration);
-    if assembly.Residual_stored{NR.incr_load}(NR.iteration)>1e40*assembly.Residual_stored{incr_load}(NR.iteration-1)
+    assembly.Residual_stored{NR.incr_load}(NR.iteration)   =  norm(assembly.Residual(bc.Dirichlet.freedof))/NR.convergence_factor;
+    Residual_dimensionless                                 =  assembly.Residual_stored{NR.incr_load}(NR.iteration);
+    if assembly.Residual_stored{NR.incr_load}(NR.iteration)>1e40*assembly.Residual_stored{NR.incr_load}(NR.iteration-1)
         NR.load_factor                                     =  NR.load_factor/2;
         NR.acumulated_factor                               =  NR.acumulated_factor - NR.load_factor;
         NR.load_factor                                     =  NR.load_factor;
@@ -50,9 +51,9 @@ end
 %--------------------------------------------------------------------------
 if NR.nonconvergence_criteria
    if NR.iteration>4
-      residual_variation              =  abs(assembly.Residual_stored{incr_load}(NR.iteration)-...
-                                                             assembly.Residual_stored{incr_load}(NR.iteration-1));
-      residual_variation              =  residual_variation/assembly.Residual_stored{incr_load}(NR.iteration-1)*100;                    
+      residual_variation              =  abs(assembly.Residual_stored{NR.incr_load}(NR.iteration)-...
+                                                             assembly.Residual_stored{NR.incr_load}(NR.iteration-1));
+      residual_variation              =  residual_variation/assembly.Residual_stored{NR.incr_load}(NR.iteration-1)*100;                    
       if residual_variation < 1e-3
          NR.nonconvergence_criteria   =  0; 
       end

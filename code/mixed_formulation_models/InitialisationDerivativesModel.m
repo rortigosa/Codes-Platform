@@ -12,6 +12,6 @@ switch str.data.formulation
     case {'electro_mechanics_Helmholtz','electro_mechanics_Helmholtz_BEM_FEM',...
           'electro_mechanics_Helmholtz_incompressible','electro_mechanics_Helmholtz_incompressible_BEM_FEM'}
        str    =  InitialisationDerivativesElectroHelmholtz(str.geometry.dim,size(str.quadrature.volume.bilinear.Chi,1),str);      
-    case {'electro_BEM_FEM'}
+    case {'electro_BEM_FEM','electro'}
        str    =  InitialisationDerivativesOnlyElectroBEMFEM(str.geometry.dim,size(str.quadrature.volume.bilinear.Chi,1),str);      
 end

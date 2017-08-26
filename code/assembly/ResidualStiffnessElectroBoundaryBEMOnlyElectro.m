@@ -10,15 +10,6 @@
 function asmb                =  ResidualStiffnessElectroBoundaryBEMOnlyElectro(inode,iedge,dim,mesh,fem,solution,quadrature)
 
 %--------------------------------------------------------------------------
-% Coordinate of the collocation point and the Gauss points in the boundary
-%--------------------------------------------------------------------------
-switch dim
-    case 2
-        dim_factor          =  2*pi;
-    case 3
-        dim_factor          =  -4*pi;
-end
-%--------------------------------------------------------------------------
 % Number of Gauss points
 %--------------------------------------------------------------------------
 ngauss              =  size(quadrature.surface.BEM_FEM.Chi,1);
@@ -35,12 +26,6 @@ xGauss              =  VectorFEMInterpolation(ngauss,fem.surface.BEM_FEM.phi.N,x
 % Find one of the elements that xprime belongs to and its local numbering
 % within that element
 %--------------------------------------------------------------------------
-%local_node         =  local_node(1);
-%q_elem             =  q_elem(1);
-%xprime_elem        =  solution.x.Lagrangian_X(:,mesh.surface.x.boundary_edges(:,q_elem));
-%%xprime            =  VectorFEMInterpolation(ngauss,fem.surface.nodes.x.N_q(:,local_node),xprime_elem);
-%xprime             =  VectorFEMInterpolation(1,fem.surface.nodes.phi.N_q(:,local_node),xprime_elem);
-%[local_node,q_elem] =  unique(find(connectivity==inode));
 connectivity        =  mesh.surface.q.connectivity;
 q_elem              =  ceil(find(connectivity==inode)/dim);
 local_node          =  find(mesh.surface.q.connectivity(:,q_elem(1))==inode);
@@ -56,15 +41,11 @@ r_norm              =  VectorNorm(r);
 %--------------------------------------------------------------------------
 V                   =  LaplaceFundamentalSolution(dim,r_norm);
 dVdx                =  DiffLaplaceFundamentalSolution(dim,r,r_norm);
-%d2Vdxdx            =  DiffDiffLaplaceFundamentalSolution(dim,r,r_norm);
 %--------------------------------------------------------------------------
 % Electric potential 
 %--------------------------------------------------------------------------
 phiedge             =  solution.phi(mesh.surface.phi.boundary_edges(:,iedge));
 phiGauss            =  ScalarFEMInterpolation(fem.surface.BEM_FEM.phi.N,phiedge);
-%phiprime_elem      =  solution.phi(mesh.surface.phi.boundary_edges(:,q_elem));
-%%phiprime          =  VectorFEMInterpolation(ngauss,fem.surface.nodes.phi.N_q(:,local_node),phiprime_elem);
-%phiprime           =  ScalarFEMInterpolation(fem.surface.nodes.phi.N_q(:,local_node),phiprime_elem);
 phiprime_elem       =  solution.phi(mesh.surface.phi.boundary_edges(:,q_elem(1)));
 phiprime            =  ScalarFEMInterpolation(fem.surface.nodes.phi.N_q(:,local_node(1)),phiprime_elem);
 %--------------------------------------------------------------------------
@@ -83,13 +64,6 @@ kinematics          =  KinematicsFunctionSurface(dim,...
 HN                  =  MatrixVectorMultiplication(dim,ngauss,kinematics.H,kinematics.Normal_vector);
 HN_norm             =  VectorNorm(HN);
 %--------------------------------------------------------------------------
-% Required vectorisations 
-%--------------------------------------------------------------------------
-% N_matrix                    =  vector2matrix_vectorisation(kinematics.Normal_vector,n_gauss,str.vectorisation.vector2matrix_rowwise_Gauss_points_boundary_BEM);
-% N_matrixT                   =  permute(N_matrix,[2 1 3]);
-% QF                          =  Q_matrix_computation(kinematics.F);
-% Nx_vectorised               =  fem.surface.bilinear.x.N_vectorised;
-%--------------------------------------------------------------------------
 % Residuals 
 %--------------------------------------------------------------------------
 for igauss=1:ngauss
@@ -102,15 +76,9 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     vector1         =  phiGauss(igauss)*(dVdx(:,igauss)'*HN(:,igauss));
     vector2         =  -V(igauss)*q(igauss)*HN_norm(igauss);
-    asmb.Tq         =  asmb.Tq   +  (vector1 + vector2)*Int_weight;
+    vector3         =  -phiprime*(dVdx(:,igauss)'*HN(:,igauss));
+    asmb.Tq         =  asmb.Tq   +  (vector1 + vector2 + vector3)*Int_weight;
 end 
-%--------------------------------------------------------------------------
-% Residual Tqprime
-%--------------------------------------------------------------------------
-if iedge==1
-   asmb.Tqprime     =  -dim_factor*phiprime;
-end
-     
 %--------------------------------------------------------------------------
 % Stiffness matrices 
 %--------------------------------------------------------------------------
@@ -122,7 +90,8 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     % Vectorisation of stiffness matrices Kqphi
     %----------------------------------------------------------------------
-    Kqphi           =  (dVdx(:,igauss)'*HN(:,igauss))*fem.surface.BEM_FEM.phi.N(:,igauss)';
+    Kqphi           =  (dVdx(:,igauss)'*HN(:,igauss))*fem.surface.BEM_FEM.phi.N(:,igauss)' + ...
+                       -(dVdx(:,igauss)'*HN(:,igauss))*fem.surface.nodes.phi.N_q(:,local_node(1))';
     %----------------------------------------------------------------------
     % Vectorisation of stiffness matrices Kqq
     %----------------------------------------------------------------------
@@ -132,10 +101,4 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     asmb.Kqphi      =  asmb.Kqphi   +  Kqphi*Int_weight;
     asmb.Kqq        =  asmb.Kqq     +  Kqq*Int_weight;    
-end
-%--------------------------------------------------------------------------
-% Stiffness matrix Kqphiprime
-%--------------------------------------------------------------------------
-if iedge==1
-   asmb.Kqphiprime  =  -dim_factor*fem.surface.nodes.phi.N_q(:,local_node(1))';
 end

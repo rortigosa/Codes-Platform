@@ -8,7 +8,7 @@
 %--------------------------------------------------------------------------
 function str                                 =  StiffnessMatrixTotalAssembly(str)
 
-mec_dofs                                     =  size(str.solution.x.Eulerian_x(:),1);
+mec_dofs                                     =  size(str.solution.x.Lagrangian_X(:),1);
 %--------------------------------------------------------------------------
 % Multiply matrices by the time integration factors.
 %--------------------------------------------------------------------------

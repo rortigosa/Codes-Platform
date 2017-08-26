@@ -10,24 +10,38 @@
 function diff_fields  =  DiffFieldsFunction(formulation,solution,old_solution)
 
 switch formulation
+    case {'u','FHJ','CGC','CGCCascade'}
+        diff_x        =  solution.x.Eulerian_x - old_solution.x.Eulerian_x;
+        diff_fields   =  diff_x;
+    case {'up'}
+        diff_x        =  solution.x.Eulerian_x(:) - old_solution.x.Eulerian_x(:);
+        diff_p        =  solution.p - old_solution.p;
+        diff_fields   =  [diff_x;diff_p];
     case 'electro'
-        diff_x        =  solution.x - old_solution.x;
+        diff_phi      =  solution.phi - old_solution.phi;
+        diff_fields   =  diff_phi;
+    case 'electro_BEM_FEM'
+        diff_phi      =  solution.phi - old_solution.phi;
+        diff_q        =  solution.q - old_solution.q;        
+        diff_fields   =  [diff_phi;diff_q];
+    case 'electro_mechanics'
+        diff_x        =  solution.x.Eulerian_x - old_solution.x.Eulerian_x;
         diff_phi      =  solution.phi - old_solution.phi;
         diff_fields   =  [diff_x;diff_phi];
-    case {'electro_incompressible','electro_mixed_incompressible'}
+    case {'electro_mechanics_incompressible','electro_mechanics_mixed_incompressible'}
         diff_x        =  solution.x.Eulerian_x(:) - old_solution.x.Eulerian_x(:);
         diff_phi      =  solution.phi - old_solution.phi;
         diff_p        =  solution.p - old_solution.p;
         diff_fields   =  [diff_x;diff_phi;diff_p];
-    case 'electro_BEM_FEM'
-        diff_x        =  solution.x - old_solution.x;
+    case 'electro_mechanics_BEM_FEM'
+        diff_x        =  solution.x.Eulerian_x - old_solution.x.Eulerian_x;
         diff_phi      =  solution.phi - old_solution.phi;
-        diff_q0       =  solution.q0 - old_solution.q0;        
-        diff_fields   =  [diff_x;diff_phi;diff_q0];
-    case {'electro_incompressible_BEM_FEM','electro_mixed_incompressible_BEM_FEM'}
-        diff_x        =  solution.x - old_solution.x;
+        diff_q        =  solution.q - old_solution.q;        
+        diff_fields   =  [diff_x;diff_phi;diff_q];
+    case {'electro_mechanics_incompressible_BEM_FEM','electro_mechanics_mixed_incompressible_BEM_FEM'}
+        diff_x        =  solution.x.Eulerian_x - old_solution.x.Eulerian_x;
         diff_phi      =  solution.phi - old_solution.phi;
         diff_p        =  solution.p - old_solution.p;
-        diff_q0       =  solution.q0 - old_solution.q0;                
-        diff_fields   =  [diff_x;diff_phi;diff_p;diff_q0];
+        diff_q        =  solution.q - old_solution.q;                
+        diff_fields   =  [diff_x;diff_phi;diff_p;diff_q];
 end

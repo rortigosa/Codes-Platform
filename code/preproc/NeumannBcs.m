@@ -16,6 +16,6 @@ switch str.data.formulation
           'electro_mechanics_Helmholtz','electro_mechanics_Helmholtz_BEM_FEM',...
           'electro_mechanics_Helmholtz_incompressible','electro_mechanics_Helmholtz_incompressible_BEM_FEM'}
          str     =  NeumannBcsElectroMechanics(str);              
-    case {'electro_BEM_FEM'}
+    case {'electro_BEM_FEM','electro'}
          str     =  NeumannBcsElectro(str);        
 end

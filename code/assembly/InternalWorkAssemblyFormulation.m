@@ -21,6 +21,6 @@ switch str.data.formulation
          str    =  ParallelInternalWorkElectroHelmholtzIncompressibleAssembly(str);
     case {'electro_mechanics_mixed_incompressible','electro_mechanics_mixed_incompressible_BEM_FEM'}        
          str    =  ParallelInternalWorkElectroMixedIncompressibleAssembly(str);
-    case {'electro_BEM_FEM'}        
+    case {'electro','electro_BEM_FEM'}        
          str    =  ParallelInternalWorkOnlyElectroAssembly(str);
 end

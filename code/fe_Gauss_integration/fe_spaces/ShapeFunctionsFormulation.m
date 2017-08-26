@@ -21,7 +21,7 @@ switch str.data.formulation
     case {'CGC','CGCCascade'}
           str                                =  ShapeFunctionsCGC(str);        
     case {'electro_mechanics','electro_mechanics_BEM_FEM','electro_mechanics_Helmholtz',...
-          'electro_mechanics_Helmholtz_BEM_FEM','electro_BEM_FEM'}
+          'electro_mechanics_Helmholtz_BEM_FEM','electro_BEM_FEM','electro'}
           str                                =  ShapeFunctionsElectro(str);
     case {'electro_mechanics_incompressible','electro_mechanics_incompressible_BEM_FEM',...
           'electro_mechanics_Helmholtz_incompressible','electro_mechanics_Helmholtz_incompressible_BEM_FEM'}

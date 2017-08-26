@@ -45,7 +45,7 @@ switch formulation
          n_dofs_Kpx       =  n_dofs_elem_p*n_dofs_elem_x;         
          n_dofs_Kpp       =  n_dofs_elem_p*n_dofs_elem_p;                  
          n_dofs_elem      =  n_dofs_Kxx + n_dofs_Kxphi + n_dofs_Kxp + n_dofs_Kphix + n_dofs_Kphiphi + n_dofs_Kpx + n_dofs_Kpp;
-    case {'electro_BEM_FEM'}
+    case {'electro_BEM_FEM','electro'}
          n_dofs_elem_phi  =  size(mesh.volume.phi.connectivity,1);
          total_dofs       =  n_dofs_elem_phi;
          

@@ -13,7 +13,7 @@ function str                          =  DirichletBcs(str)
 % Constraints for x
 %--------------------------------------------------------------------------
 switch str.data.formulation
-    case 'electro_BEM_FEM'
+    case {'electro_BEM_FEM','electro'}
 n_dofs                                =  0;        
     otherwise
 [fixdof_u,freedof_u,...
@@ -31,7 +31,7 @@ switch str.data.formulation
           'electro_mechanics_BEM_FEM','electro_mechanics_incompressible_BEM_FEM','electro_mechanics_mixed_incompressible_BEM_FEM',...
           'electro_mechanics_Helmholtz','electro_mechanics_Helmholtz_BEM_FEM',...
           'electro_mechanics_Helmholtz_incompressible','electro_mechanics_Helmholtz_incompressible_BEM_FEM',...
-          'electro_BEM_FEM'}
+          'electro_BEM_FEM','electro'}
 [fixdof_phi,freedof_phi,...
     cons_val_phi]                     =  ElectricDirichletConstraints(str);                         
 str.bc.Dirichlet.phi.freedof          =  freedof_phi;
@@ -93,7 +93,12 @@ switch str.data.formulation
          str.bc.Dirichlet.freedof     =  [freedof_u;   freedof_phi;  freedof_p;  freedof_q];
          str.bc.Dirichlet.cons_val    =  [cons_val_u;  cons_val_phi];               
     case {'electro_BEM_FEM'}
+         str.bc.Dirichlet.fixdof      =  fixdof_phi;
          str.bc.Dirichlet.freedof     =  [freedof_phi;  freedof_q];
+         str.bc.Dirichlet.cons_val    =  cons_val_phi;               
+    case 'electro'
+         str.bc.Dirichlet.fixdof      =  fixdof_phi;
+         str.bc.Dirichlet.freedof     =  freedof_phi;
          str.bc.Dirichlet.cons_val    =  cons_val_phi;               
 end
 end        

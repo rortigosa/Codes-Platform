@@ -25,7 +25,7 @@ presc1                  =  zeros(str.mesh.volume.x.n_nodes,1);
 xmin                    =  min(str.mesh.volume.x.nodes(1,:));
 for inode=1:str.mesh.volume.x.n_nodes
     x                   =  str.mesh.volume.x.nodes(:,inode);
-    if (x(1) - xmin)<1e-6
+    if abs(x(1) - xmin)<1e-6
        nodes1(inode)    =  inode;
        presc1(inode)    =  0;
     end 

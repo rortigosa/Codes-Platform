@@ -27,7 +27,7 @@ switch str.data.analysis
          %-----------------------------------------------------------------
          % Compute the residual based on the Neumann forces
          %-----------------------------------------------------------------        
-         dofs                          =  str.geometry.dim*str.mesh.volume.x.n_nodes + str.mesh.volume.phi.n_nodes;
+         dofs                          =  size(diff_force_vector,1);
          str.assembly.Residual(1:dofs,...
              1)                        =  str.assembly.Residual(1:dofs,1) - diff_force_vector;
          diff_fields                   =  DiffFieldsFunction(str.data.formulation,str.solution,old_solution);
@@ -36,9 +36,9 @@ switch str.data.analysis
          %-----------------------------------------------------------------
          constrained_dofs              =  (1:size(diff_fields,1))';
          constrained_dofs(str.bc.Dirichlet.freedof,...
-             1)                        =  [];
+             :)                        =  [];
          Delta_constrained_dofs        =  diff_fields(constrained_dofs);
-         reduced_matrix                =  str.assembly.K_total(str.bc.Dirichlet.freedof,constrained_dof);
+         reduced_matrix                =  str.assembly.K_total(str.bc.Dirichlet.freedof,constrained_dofs);
          %-----------------------------------------------------------------
          % Residual=.K(free,constrained)*Deltaconstrained.
          %-----------------------------------------------------------------

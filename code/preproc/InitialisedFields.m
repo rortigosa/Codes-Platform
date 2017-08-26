@@ -32,6 +32,8 @@ switch str.data.formulation
     case 'electro_mechanics_mixed_incompressible_BEM_FEM'
         str.solution                  =  InitialisedVariablesElectroMixedIncompressibleBEMFEM(str.geometry,str.mesh,str.material_information);
     case {'electro_BEM_FEM'}
+        str.solution                  =  InitialisedVariablesElectroBEMOnlyElectro(str.geometry,str.mesh,str.quadrature);
+    case {'electro'}
         str.solution                  =  InitialisedVariablesOnlyElectro(str.geometry,str.mesh,str.quadrature);
 end                                  
 %--------------------------------------------------------------------------

@@ -27,4 +27,6 @@ switch formulation
     case {'electro_BEM_FEM'}
          assembly.Tphi     =  zeros(mesh.volume.phi.n_nodes,1);
          assembly.Tq       =  zeros(mesh.surface.q.n_nodes,1);
+    case 'electro'
+         assembly.Tphi     =  zeros(mesh.volume.phi.n_nodes,1);
 end
