@@ -7,8 +7,8 @@ mat_id                    =  mat_info.material_identifier(ielem)                
 %--------------------------------------------------------------------------                                                                                        
 % Material parameters
 %--------------------------------------------------------------------------                                                                                        
-e2                        =  mat_info.material_parameters.e2(mat_id);
+e1                        =  mat_info.material_parameters.e2(mat_id);
 %--------------------------------------------------------------------------                                                                                        
 % First derivatives of the model
 %--------------------------------------------------------------------------                                                                                        
-mat_info.derivatives.DU.DUDD0    =  1/(e2)*D0;
+mat_info.derivatives.DU.DUDD0    =  1/(e1)*D0;

@@ -54,7 +54,7 @@ while str.NR.accumulated_factor<0.99
         [str.NR,Residual_dimensionless,...
             str.assembly]           =  NewtonRaphsonConvergence(str.NR,str.assembly,str.bc);
         %------------------------------------------------------------------
-        % screen ouput for current Newton-Raphson iteration.                                 
+        % screen ouput for current Newton-Raphson iteration.                                  
         %------------------------------------------------------------------
         toc
         NewtonRaphsonIterationPrint(str.NR,Residual_dimensionless);

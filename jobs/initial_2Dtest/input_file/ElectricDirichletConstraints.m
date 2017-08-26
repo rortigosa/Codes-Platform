@@ -26,10 +26,10 @@ nodes2                   =  zeros(str.mesh.volume.phi.n_nodes,1);
 presc2                   =  zeros(str.mesh.volume.phi.n_nodes,1);
 ymin                     =  min(str.mesh.volume.phi.nodes(2,:));
 ymax                     =  max(str.mesh.volume.phi.nodes(2,:));
-ymed                     =  (ymin + ymax)/2;
+%ymed                    =  (ymin + ymax)/2;
 for inode=1:str.mesh.volume.phi.n_nodes
     x                    =  str.mesh.volume.phi.nodes(:,inode);
-    if abs(x(2) - ymed)<1e-6
+    if abs(x(2) - ymax)<1e-6
        nodes1(inode)     =  inode;
        presc1(inode)     =  0;
     end 

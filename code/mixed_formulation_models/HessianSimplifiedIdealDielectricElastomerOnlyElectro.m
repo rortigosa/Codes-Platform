@@ -11,10 +11,10 @@ Imatrix                        =  eye(dim);
 %--------------------------------------------------------------------------
 % Material parameters
 %--------------------------------------------------------------------------                                                                            
-e2                             =  mat_info.material_parameters.e2(mat_id);
+e1                             =  mat_info.material_parameters.e2(mat_id);
 %--------------------------------------------------------------------------
 % Second derivatives of the model
 %--------------------------------------------------------------------------                                                                            
 for igauss=1:ngauss
-mat_info.derivatives.D2U.D2UDD0DD0(:,:,igauss)  =  1/(e2)*Imatrix;
+mat_info.derivatives.D2U.D2UDD0DD0(:,:,igauss)  =  1/(e1)*Imatrix;
 end

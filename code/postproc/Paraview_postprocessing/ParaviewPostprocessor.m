@@ -1,7 +1,7 @@
-function  paraview_solid(str,filename)
+function  ParaviewPostprocessor(str,filename)
 
 local_ordering                        =  local_ordering_nodes(2);                                                            
-n_elem                                =  str.mesh.n_elem;
+n_elem                                =  str.mesh.volume.n_elem;
 n_nodes                               =  (8*1)*str.fem.postprocessing.degree^3*n_elem;
 connectivity                          =  reshape((1:n_nodes)',8,[]);
 %--------------------------------------------------------------------------

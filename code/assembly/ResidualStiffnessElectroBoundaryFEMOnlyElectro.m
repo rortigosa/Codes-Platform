@@ -10,7 +10,7 @@
 function asmb       =  ResidualStiffnessElectroBoundaryFEMOnlyElectro(iedge,dim,quadrature,fem,mesh,solution,...
                                                                       mat_info)
 %--------------------------------------------------------------------------
-% Number of Gauss points
+% Number of Gauss points 
 %--------------------------------------------------------------------------
 ngauss              =  size(quadrature.surface.bilinear.Chi,1);
 %--------------------------------------------------------------------------

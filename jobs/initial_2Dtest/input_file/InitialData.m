@@ -69,7 +69,7 @@ str.fem.degree.d_continuity                  =  'continuous';
 str.fem.degree.d_continuity                  =  'discontinuous';
 switch str.data.formulation
     case {'electro_BEM_FEM','electro_incompressible_BEM_FEM','electro_mixed_incompressible_BEM_FEM'}
-         str.fem.degree.q                    =  1;
+         str.fem.degree.q                    =  0;
          str.fem.surface.BEM_FEM.continuity  =  1;
 end
 %--------------------------------------------------------------------------
