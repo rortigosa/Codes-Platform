@@ -22,27 +22,37 @@ function    [fixdof_phi,freedof_phi,...
 %--------------------------------------------------------------------------
 nodes1                   =  zeros(str.mesh.volume.phi.n_nodes,1);
 presc1                   =  zeros(str.mesh.volume.phi.n_nodes,1);
-ymed                     =  (min(str.mesh.volume.phi.nodes(2,:)) + max(str.mesh.volume.phi.nodes(2,:)))/2;
+nodes2                   =  zeros(str.mesh.volume.phi.n_nodes,1);
+presc2                   =  zeros(str.mesh.volume.phi.n_nodes,1);
+ymin                     =  min(str.mesh.volume.phi.nodes(2,:));
+ymax                     =  max(str.mesh.volume.phi.nodes(2,:));
+ymed                     =  (ymin + ymax)/2;
 for inode=1:str.mesh.volume.phi.n_nodes
     x                    =  str.mesh.volume.phi.nodes(:,inode);
     if abs(x(2) - ymed)<1e-6
        nodes1(inode)     =  inode;
        presc1(inode)     =  0;
     end 
+    if abs(x(2) - ymin)<1e-6
+       nodes2(inode)     =  inode;
+       presc2(inode)     =  1e5;
+    end 
 end
 nodes1                   =  nodes1(nodes1>0);
 presc1                   =  presc1(nodes1);
+nodes2                   =  nodes2(nodes2>0);
+presc2                   =  presc2(nodes2);
 %--------------------------------------------------------------------------
 % Degrees of freedom with associated constraints
 %--------------------------------------------------------------------------
-dofs1                    =  nodes1;  %  Select direction X for set 1
+dofs1                    =  [nodes1;nodes2];  %  Select direction X for set 1
 freedof_phi              =  (1:str.mesh.volume.phi.n_nodes)';
 [fixdof_phi,order]       =  sort(dofs1);
 freedof_phi(fixdof_phi)  =  [];
 %--------------------------------------------------------------------------
 % Degrees of freedom with associated constraints 
 %--------------------------------------------------------------------------
-prescribed               =  presc1;
+prescribed               =  [presc1;presc2];
 prescribed               =  prescribed(order);
 cons_val_phi             =  prescribed;
 

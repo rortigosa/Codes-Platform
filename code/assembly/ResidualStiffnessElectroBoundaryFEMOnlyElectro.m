@@ -32,8 +32,6 @@ kinematics          =  KinematicsFunctionSurface(dim,solution.x.Lagrangian_X(:,m
                                 solution.x.Lagrangian_X(:,mesh.surface.x.boundary_edges(:,iedge)),...
                                 solution.x.Lagrangian_X(:,mesh.volume.x.connectivity(:,mesh.surface.x.volume_elements(iedge))),...
                                 fem.surface.bilinear.x.N,fem.surface.bilinear.x.DN_chi);                                         
-HN                  =  MatrixVectorMultiplication(dim,ngauss,kinematics.H,kinematics.Normal_vector);
-HN_norm             =  VectorNorm(HN);
 %--------------------------------------------------------------------------
 % Residuals 
 %--------------------------------------------------------------------------
@@ -45,7 +43,7 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     % Residual Gauss' law.- (D0'*DN_X*W*J_t)'
     %----------------------------------------------------------------------
-    asmb.Tphi       =  asmb.Tphi   -  (q(igauss)*HN_norm(igauss)*fem.surface.bilinear.phi.N(:,igauss))*Int_weight;
+    asmb.Tphi       =  asmb.Tphi   -  e0*(q(igauss)*fem.surface.bilinear.phi.N(:,igauss))*Int_weight;
 end      
 %--------------------------------------------------------------------------
 % Stiffness matrices 
@@ -58,7 +56,7 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     % Vectorisation of stiffness matrices Kphiq
     %----------------------------------------------------------------------
-    Kphiq           =  -e0*HN_norm(igauss)*(fem.surface.bilinear.phi.N(:,igauss)*fem.surface.bilinear.q.N(:,igauss)');
+    Kphiq           =  -e0*(fem.surface.bilinear.phi.N(:,igauss)*fem.surface.bilinear.q.N(:,igauss)');
     %----------------------------------------------------------------------
     % Stiffness matrices
     %----------------------------------------------------------------------

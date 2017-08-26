@@ -57,26 +57,26 @@ switch newpreprocessor
          %-----------------------------------------------------------------
          str     =  MeshGenerationFormulation(str);
          %-----------------------------------------------------------------
-         % Boundary preprocessing.    
+         % Boundary preprocessing.     
          %-----------------------------------------------------------------
          str     =  BoundaryPreprocessingFinal(str);
          %-----------------------------------------------------------------
-         % Material information.     
+         % Material information.      
          %-----------------------------------------------------------------
          str     =  MaterialModelPreprocessor(str);
          %-----------------------------------------------------------------
-         % Initialisation             
+         % Initialisation                
          %-----------------------------------------------------------------
          str     =  InitialisationFormulation(str);
          %-----------------------------------------------------------------
-         % Constraints               
+         % Constraints                   
          %-----------------------------------------------------------------
          str     =  BoundaryConditionsManager(str);
     case 0
 load('saved_preprocessor.mat');     
 end  
 %--------------------------------------------------------------------------
-% Solver                                                                                                      
+% Solver                                                                                                           
 %-------------------------------------------------------------------------- 
 Solver(str);
  

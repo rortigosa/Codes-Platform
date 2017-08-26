@@ -11,7 +11,7 @@ function phi_distributed         =  DistributedElectricCharge(str)
 phi_distributed                  =  zeros(str.mesh.volume.phi.n_nodes,1);
 n_boundary_edges                 =  size(str.mesh.surface.phi.boundary_edges,2);
 n_gauss                          =  size(str.quadrature.surface.bilinear.Chi,1);
-w0                               =  1e-3; % Value of the applied traction
+w0                               =  1e-3*0; % Value of the applied traction
 n_nodes_elem_boundary            =  size(str.mesh.surface.phi.boundary_edges,1);
 
 ymin                             =  min(str.mesh.volume.phi.nodes(2,:));

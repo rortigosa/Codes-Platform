@@ -1,5 +1,5 @@
 
-function dVdx                =  diff_Laplace_Fundamental_Solution(dim,r,r_norm)
+function dVdx                =  DiffLaplaceFundamentalSolution(dim,r,r_norm)
 
 n_gauss                      =  size(r,2);
 dVdx                         =  zeros(size(r,1),n_gauss,1);

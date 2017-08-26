@@ -1,5 +1,5 @@
 
-function V   =  Laplace_Fundamental_Solution(dim,r_norm)
+function V   =  LaplaceFundamentalSolution(dim,r_norm)
 
 switch dim
     case 2

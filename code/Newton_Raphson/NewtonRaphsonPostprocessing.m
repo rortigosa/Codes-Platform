@@ -11,7 +11,7 @@ function NewtonRaphsonPostprocessing(str)
 switch str.NR.convergence_plotting
     case 1
          figure(1)
-         plot(log10(str.assembly.Residual_stored{NR.incr_load}(1:str.NR.iteration)),'b-o')
+         plot(log10(str.assembly.Residual_stored{str.NR.incr_load}(1:str.NR.iteration)),'b-o')
 end
 switch str.data.analysis
     case 'static'

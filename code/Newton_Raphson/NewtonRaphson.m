@@ -6,53 +6,53 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function str                      =  NewtonRaphson(str)
+function str                        =  NewtonRaphson(str)
 
 while str.NR.accumulated_factor<0.99  
     %----------------------------------------------------------------------
     % Incremental variables for the load increment strategy.               
     %----------------------------------------------------------------------
-    str.NR.incr_load              =  str.NR.incr_load + 1; 
-    str.NR.accumulated_factor     =  str.NR.accumulated_factor + str.NR.load_factor;
-    convergence_warning           =  'desactivated';
+    str.NR.incr_load                =  str.NR.incr_load + 1; 
+    str.NR.accumulated_factor       =  str.NR.accumulated_factor + str.NR.load_factor;
+    convergence_warning             =  'desactivated';
     %----------------------------------------------------------------------    
     % Update Dirichlet boundary conditions.   
     %----------------------------------------------------------------------    
-    old_solution                  =  str.solution;
-    str                           =  UpdateDirichletBoundaryConditions(str);
+    old_solution                    =  str.solution;
+    str                             =  UpdateDirichletBoundaryConditions(str);
     %----------------------------------------------------------------------
     % Updated residual for the next load increment taking into account 
     % Dirichlet boundary conditions.       
     %----------------------------------------------------------------------
-    str                           =  NewtonRaphsonInitialResidual(str,old_solution);
+    str                             =  NewtonRaphsonInitialResidual(str,old_solution);
     %----------------------------------------------------------------------
     % Necessary incremental variables.                               
     %----------------------------------------------------------------------    
-    Residual_dimensionless        =  1e8;  
-    str.NR.iteration              =  0;
-    nonconvergence_criteria       =  Residual_dimensionless>str.NR.tolerance;
-    while nonconvergence_criteria    
+    Residual_dimensionless          =  1e8;  
+    str.NR.iteration                =  0;
+    str.NR.nonconvergence_criteria  =  Residual_dimensionless>str.NR.tolerance;
+    while str.NR.nonconvergence_criteria    
         tic  
-        str.NR.iteration          =  str.NR.iteration + 1;
+        str.NR.iteration            =  str.NR.iteration + 1;
         %------------------------------------------------------------------
         % solving system of equations                                                                                         
         %------------------------------------------------------------------
-        [freedof,fixdof]          =  DeterminationVariableFreeFixedDofs(str);
-        str.solution              =  SolveSystemEquations(freedof,fixdof,str.assembly,str.solution);                                                                    
+        [freedof,fixdof]            =  DeterminationVariableFreeFixedDofs(str);
+        str.solution                =  SolveSystemEquations(freedof,fixdof,str.assembly,str.solution);                                                                    
         %------------------------------------------------------------------
         % update the variables of the problem. corrector step.                                
         %------------------------------------------------------------------
-        str                       =  FieldsUpdate(str);
+        str                         =  FieldsUpdate(str); 
         %------------------------------------------------------------------
         % update matrices and force vectors.                                                                                                                                                       
         %------------------------------------------------------------------
-        str                       =  TotalAssembly(str);
-        str                       =  NewtonRaphsonResidualUpdate(str);
+        str                         =  TotalAssembly(str);
+        str                         =  NewtonRaphsonResidualUpdate(str);
         %------------------------------------------------------------------
-        % checking for convergence.                                                                                                                 
+        % checking for convergence.                                                                                                                  
         %------------------------------------------------------------------
         [str.NR,Residual_dimensionless,...
-            str.assembly]         =  NewtonRaphsonConvergence(str.NR,str.assembly,str.bc);
+            str.assembly]           =  NewtonRaphsonConvergence(str.NR,str.assembly,str.bc);
         %------------------------------------------------------------------
         % screen ouput for current Newton-Raphson iteration.                                 
         %------------------------------------------------------------------
@@ -63,7 +63,7 @@ while str.NR.accumulated_factor<0.99
         %------------------------------------------------------------------
         switch convergence_warning
             case 'activated' 
-                 str                                  =  old_str;
+                 str                =  old_str;
                 break;  
         end  
     end  

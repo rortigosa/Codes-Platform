@@ -24,7 +24,7 @@ str.assembly    =  GlobalResidualInitialisationFormulation(str.geometry,str.mesh
 % Loop over elements for the assembly of resiuals and stiffness matrices
 %--------------------------------------------------------------------------
 tic     
-parfor ielem=1:str.mesh.volume.n_elem  
+for ielem=1:str.mesh.volume.n_elem  
     %----------------------------------------------------------------------
     % Residuals and stiffness matrices 
     %----------------------------------------------------------------------
@@ -36,7 +36,7 @@ parfor ielem=1:str.mesh.volume.n_elem
     %----------------------------------------------------------------------
     [INDEXI,INDEXJ,DATA]  =  StiffnessSparseAssemblyInternalWorkOnlyElectro(ielem,str.mesh,...
                                                     element_assembly);         
-    Kindexi(:,ielem)      =  INDEXI;
+    Kindexi(:,ielem)      =  INDEXI; 
     Kindexj(:,ielem)      =  INDEXJ;
     Kdata(:,ielem)        =  DATA;
     %----------------------------------------------------------------------

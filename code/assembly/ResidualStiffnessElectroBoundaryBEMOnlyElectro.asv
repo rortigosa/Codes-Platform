@@ -36,7 +36,7 @@ xprime               =  VectorFEMInterpolation(1,fem.surface.nodes.phi.N_q(:,loc
 %--------------------------------------------------------------------------
 r                      =  xGauss - repmat(xprime,1,size(xGauss,2));
 r_norm                 =  VectorNorm(r);
-r(:,r_norm<1e-6)       =  1e-6;
+r(:,find(r_norm<0.1)) =  1e-6;
 r_norm                 =  VectorNorm(r);
 %--------------------------------------------------------------------------
 % Test functions in BEM 
@@ -103,5 +103,3 @@ for igauss=1:ngauss
     asmb.Kqphiprime  =  asmb.Kqphiprime + Kqphiprime*Int_weight;
     asmb.Kqq         =  asmb.Kqq        +  Kqq*Int_weight;    
 end
-
-

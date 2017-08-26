@@ -32,7 +32,7 @@ for inode=1:str.mesh.surface.q.n_nodes
         %------------------------------------------------------------------
         % Residuals and stiffness matrices
         %------------------------------------------------------------------
-        edge_assembly         =  ResidualStiffnessElectroBoundaryBEMOnlyElectro(inode,iedge,str.geometry.dim,...
+        edge_assembly            =  ResidualStiffnessElectroBoundaryBEMOnlyElectro(inode,iedge,str.geometry.dim,...
                                                                     str.mesh,str.fem,str.solution,str.quadrature);
         %------------------------------------------------------------------
         % Sparse assembly 
@@ -45,9 +45,9 @@ for inode=1:str.mesh.surface.q.n_nodes
         % Assembly of residuals
         %------------------------------------------------------------------
         [INDEXI,INDEXJ,DATA]     =  SparseVectorsAssemblyBoundaryBEMOnlyElectro(inode,str.mesh,edge_assembly);
-        BITindexi(:,iedge)        =  INDEXI;
-        BITindexj(:,iedge)        =  INDEXJ;
-        BITdata(:,iedge)          =  DATA;
+        BITindexi(:,iedge)       =  INDEXI;
+        BITindexj(:,iedge)       =  INDEXJ;
+        BITdata(:,iedge)         =  DATA;
     end
     Kindexi(:,inode)             =  BIKindexi(:);
     Kindexj(:,inode)             =  BIKindexj(:);
