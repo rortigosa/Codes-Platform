@@ -14,8 +14,8 @@ str.material_information.n_material_models    =  1;
 %material_model{1}                            =  'compressible_Mooney_Rivlin';
 %material_model{1}                            =  'polyconvex_transversely_isotropic';
 %material_model{1}                            =  'ideal_dielectric_elastomer';
-material_model{1}                             =  'simplified_ideal_dielectric_elastomer';
-%material_model{1}                            =  'ideal_dielectric_elastomer';
+%material_model{1}                            =  'simplified_ideal_dielectric_elastomer';
+material_model{1}                             =  'ideal_dielectric_elastomer';
 
 if size(material_model,2)==str.material_information.n_material_models
 else

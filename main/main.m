@@ -53,7 +53,7 @@ switch newpreprocessor
          %-----------------------------------------------------------------
          str     =  FEMShapeFunctions(str);
          %-----------------------------------------------------------------
-         % Model geometrical information. 
+         % Model geometrical information.   
          %-----------------------------------------------------------------
          str     =  MeshGenerationFormulation(str);
          %-----------------------------------------------------------------

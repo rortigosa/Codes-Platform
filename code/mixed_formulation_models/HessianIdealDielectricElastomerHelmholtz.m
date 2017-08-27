@@ -42,8 +42,8 @@ for igauss=1:n_gauss
     material_information.derivatives.D2Psi.D2PsiDHDE0(:,:,igauss)   =  -invJ*inve1*D_HE0HE0_DH_DE0(:,:,igauss);
     
     material_information.derivatives.D2Psi.D2PsiDE0DH(:,:,igauss)   =  material_information.derivatives.D2Psi.D2PsiDHDE0(:,:,igauss)';
-    material_information.derivatives.D2Psi.D2PsiDE0DJ(:,:,igauss)   =  invJ*inve1*H(:,:,igauss)'*HE0;
-    material_information.derivatives.D2Psi.D2PsiDE0DE0(:,:,igauss)  =  invJ*inve1*H(:,:,igauss)'*H(:,:,igauss);
+    material_information.derivatives.D2Psi.D2PsiDE0DJ(:,:,igauss)   =  invJ^2*inve1*H(:,:,igauss)'*HE0;
+    material_information.derivatives.D2Psi.D2PsiDE0DE0(:,:,igauss)  =  -invJ*inve1*H(:,:,igauss)'*H(:,:,igauss);
 
     material_information.derivatives.D2Psi.D2PsiDJDH(:,:,igauss)    =  material_information.derivatives.D2Psi.D2PsiDHDJ(:,:,igauss)';
     material_information.derivatives.D2Psi.D2PsiDJDJ(igauss)        =  (mu1 + 2*mu2)/(J(igauss))^2 + kappa - inve1*invJ^3*(HE0'*HE0);

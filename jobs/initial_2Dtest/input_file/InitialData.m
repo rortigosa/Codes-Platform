@@ -18,11 +18,11 @@ str.data.formulation                         =  'CGC';
 str.data.formulation                         =  'CGCCascade';
 str.data.formulation                         =  'electro_mechanics';
 str.data.formulation                         =  'electro_mechanics_Helmholtz';
-str.data.formulation                         =  'electro_mechanics_incompressible';
-str.data.formulation                         =  'electro_mechanics_Helmholtz_incompressible';
-str.data.formulation                         =  'electro_mechanics_mixed_incompressible';
-str.data.formulation                         =  'u_phi_D0_d_Sigmad';
-str.data.formulation                         =  'electro_BEM_FEM';  %  no mechanics!!
+%str.data.formulation                        =  'electro_mechanics_incompressible';
+%str.data.formulation                        =  'electro_mechanics_Helmholtz_incompressible';
+%str.data.formulation                        =  'electro_mechanics_mixed_incompressible';
+%str.data.formulation                        =  'u_phi_D0_d_Sigmad';
+%str.data.formulation                        =  'electro_BEM_FEM';  %  no mechanics!!
 %str.data.formulation                        =  'electro';  %  no mechanics!!
 %str.data.formulation                        =  'electro_mechanics_BEM_FEM';
 %str.data.formulation                        =  'electro_mechanics_Helmholtz_BEM_FEM';
@@ -69,7 +69,7 @@ str.fem.degree.d_continuity                  =  'continuous';
 str.fem.degree.d_continuity                  =  'discontinuous';
 switch str.data.formulation
     case {'electro_BEM_FEM','electro_incompressible_BEM_FEM','electro_mixed_incompressible_BEM_FEM'}
-         str.fem.degree.q                    =  0;
+         str.fem.degree.q                    =  1;
          str.fem.surface.BEM_FEM.continuity  =  1;
 end
 %--------------------------------------------------------------------------

@@ -15,7 +15,7 @@ fprintf('Begining of mass matrices assembly\n')
 %--------------------------------------------------------------------------
 % Dofs per element and initialisation of indexi, indexj and data
 %--------------------------------------------------------------------------
-n_dofs_elem_x0               =  str.mesh.volume.x.n_node_elem*3;
+n_dofs_elem_x0               =  str.mesh.volume.x.n_node_elem*str.geometry.dim;
 
 n_dofs_elem                  =  n_dofs_elem_x0^2;
 n_dofs                       =  n_dofs_elem*str.mesh.volume.n_elem;

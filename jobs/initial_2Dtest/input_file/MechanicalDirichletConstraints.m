@@ -35,10 +35,10 @@ presc1                  =  presc1(nodes1);
 %--------------------------------------------------------------------------
 % Degrees of freedom with associated constraints
 %--------------------------------------------------------------------------
-dofs1x                  =  1 + 3*(nodes1 - 1);  %  Select direction X for set 1
-dofs1y                  =  2 + 3*(nodes1 - 1);  %  Select direction Y for set 1
+dofs1x                  =  1 + str.geometry.dim*(nodes1 - 1);  %  Select direction X for set 1
+dofs1y                  =  2 + str.geometry.dim*(nodes1 - 1);  %  Select direction Y for set 1
 
-freedof_u               =  (1:2*str.mesh.volume.x.n_nodes)';
+freedof_u               =  (1:str.geometry.dim*str.mesh.volume.x.n_nodes)';
 [fixdof_u,order]        =  sort([dofs1x;dofs1y]);
 freedof_u(fixdof_u)     =  [];
 %--------------------------------------------------------------------------

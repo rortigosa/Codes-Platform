@@ -27,7 +27,7 @@ kinematics                  =  KinematicsFunctionVolume(dim,...
 % Mass matrix Mx0x0 
 %--------------------------------------------------------------------------
 density                     =  material_information.material_parameters.density;
-Mass_xx                     =  zeros(3*mesh.volume.x.n_node_elem);
+Mass_xx                     =  zeros(dim*mesh.volume.x.n_node_elem);
 for igauss=1:size(quadrature.Chi,1)
     %----------------------------------------------------------------------
     % Isoparametric information
