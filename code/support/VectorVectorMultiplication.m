@@ -1,16 +1,16 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 %
-%  Compute the product between 
+%  Compute the outer product between two vectors
 %
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function newmatrix         =  MatrixMatrixMultiplication(dimi,dimj,n_gauss,matrixA,matrixB)
+function matrix          =  VectorVectorMultiplication(dim,n_gauss,V1,V2)
 
-newmatrix                  =  zeros(dimi,dimj,n_gauss);
+matrix                   =  zeros(dim,dim,n_gauss);
 for igauss=1:n_gauss
-    newmatrix(:,:,igauss)  =  matrixA(:,:,igauss)*matrixB(:,:,igauss);
+    matrix(:,:,igauss)   =  V1(:,igauss)*V2(:,igauss)';
 end
 
 

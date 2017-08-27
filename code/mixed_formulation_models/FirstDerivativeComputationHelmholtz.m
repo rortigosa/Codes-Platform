@@ -8,7 +8,7 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function  material_information   =  FirstDerivativeComputationHelmholtz(ielem,n_gauss,F,H,J,E0,material_information)    
+function  material_information   =  FirstDerivativeComputationHelmholtz(ielem,dim,ngauss,F,H,J,E0,material_information)    
 %--------------------------------------------------------------------------
 % Different models
 %--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ switch material_information.material_model{material_information.material_identif
     % 3D simplified ideal dielectric elastomer
     %----------------------------------------------------------------------
     case 'ideal_dielectric_elastomer'
-        material_information     =  FirstDerivativesThreeDDielectricElastomerHelmholtz(ielem,n_gauss,...
+        material_information     =  FirstDerivativesThreeDDielectricElastomerHelmholtz(ielem,dim,ngauss,...
                                                                       F,H,J,E0,material_information);
 end        
         

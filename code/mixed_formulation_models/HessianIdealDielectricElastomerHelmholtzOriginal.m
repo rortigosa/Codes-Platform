@@ -1,4 +1,4 @@
-function mat_info  =  HessianIdealDielectricElastomerHelmholtz(ielem,dim,ngauss,H,...
+function mat_info  =  HessianIdealDielectricElastomerHelmholtzOriginal(ielem,dim,ngauss,H,...
                                                                        J,E0,mat_info,vectorisation)
 
 %--------------------------------------------------------------------------
@@ -44,12 +44,12 @@ HTE0_HTE0              =  VectorVectorInnerMultiplication(ngauss,HE0,HE0);
 mat_info.derivatives.D2Psi.D2PsiDFDF    =  mu1*Itensor;
 
 mat_info.derivatives.D2Psi.D2PsiDHDH    =  mu2*Itensor - inve1*MatrixScalarMultiplication(dim^2,dim^2,ngauss,E0matrix_E0matrix1,invJ);
-mat_info.derivatives.D2Psi.D2PsiDHDJ    =  reshape(inve1*VectorScalarMultiplication(dim^2,ngauss,reshape(HE0_E0,dim^2,ngauss),invJ2),dim^2,1,ngauss);
+mat_info.derivatives.D2Psi.D2PsiDHDJ    =  inve1*VectorScalarMultiplication(dim^2,ngauss,reshape(HE0_E0,dim^2,ngauss),invJ2);
 
 mat_info.derivatives.D2Psi.D2PsiDHDE0   =  -inve1*MatrixScalarMultiplication(dim^2,dim,ngauss,D_HE0HE0_DH_DE0,invJ);
 
 mat_info.derivatives.D2Psi.D2PsiDE0DH   =  permute(mat_info.derivatives.D2Psi.D2PsiDHDE0,[2  1 3]);
-mat_info.derivatives.D2Psi.D2PsiDE0DJ   =  reshape(inve1*VectorScalarMultiplication(dim,ngauss,HTHE0,invJ2),dim,1,ngauss);
+mat_info.derivatives.D2Psi.D2PsiDE0DJ   =  inve1*VectorScalarMultiplication(dim,ngauss,HTHE0,invJ2);
 mat_info.derivatives.D2Psi.D2PsiDE0DE0  =  -inve1*MatrixScalarMultiplication(dim,dim,ngauss,HTH,invJ);
 
 mat_info.derivatives.D2Psi.D2PsiDJDH    =  reshape(mat_info.derivatives.D2Psi.D2PsiDHDJ,1,dim^2,ngauss);

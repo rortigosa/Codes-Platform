@@ -62,7 +62,7 @@ for igauss=1:ngauss
     %----------------------------------------------------------------------
     % Residual Gauss' law.- (D0'*DN_X*W*J_t)'
     %----------------------------------------------------------------------
-    asmb.Tphi        =  asmb.Tphi   -  (DN_X_phi(:,:,igauss)'*D0(:,igauss))*Int_weight;
+    asmb.Tphi        =  asmb.Tphi   +  (DN_X_phi(:,:,igauss)'*D0(:,igauss))*Int_weight;
 end      
 %--------------------------------------------------------------------------
 % Residuals and Stiffness matrices 
@@ -83,8 +83,8 @@ for igauss=1:ngauss
     % Stiffness matrices
     %----------------------------------------------------------------------
     asmb.Kxx         =  asmb.Kxx      +  vect_mat.Kxx*Int_weight;
-    asmb.Kxphi       =  asmb.Kxphi    +  vect_mat.Kxphi*Int_weight;
-    asmb.Kphix       =  asmb.Kphix    +  vect_mat.Kphix*Int_weight;
+    asmb.Kxphi       =  asmb.Kxphi    -  vect_mat.Kxphi*Int_weight;
+    asmb.Kphix       =  asmb.Kphix    -  vect_mat.Kphix*Int_weight;
     asmb.Kphiphi     =  asmb.Kphiphi  +  vect_mat.Kphiphi*Int_weight;
 end
 

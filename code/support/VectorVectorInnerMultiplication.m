@@ -1,16 +1,16 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 %
-%  Compute the product between 
+%  Compute the dot product between two vectors
 %
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function newmatrix         =  MatrixMatrixMultiplication(dimi,dimj,n_gauss,matrixA,matrixB)
+function scalar      =  VectorVectorInnerMultiplication(n_gauss,V1,V2)
 
-newmatrix                  =  zeros(dimi,dimj,n_gauss);
+scalar               =  zeros(n_gauss,1);
 for igauss=1:n_gauss
-    newmatrix(:,:,igauss)  =  matrixA(:,:,igauss)*matrixB(:,:,igauss);
+    scalar(igauss)   =  V1(:,igauss)'*V2(:,igauss);
 end
 
 

@@ -6,13 +6,13 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function solution                =  UpdatedIncrementalVariablesElectroIncompressibleBEMFEM(mesh,solution,time_integrator,contact) 
+function solution                =  UpdatedIncrementalVariablesElectroIncompressibleBEMFEM(dim,mesh,solution,time_integrator,contact) 
 %--------------------------------------------------------------------------
 % Update x 
 %--------------------------------------------------------------------------
 initial                          =  1;
-final                            =  mesh.dim*mesh.volume.x.n_nodes;
-D_x                              =  reshape(solution.incremental_solution(initial:final),mesh.dim,mesh.x0.n_nodes);
+final                            =  dim*mesh.volume.x.n_nodes;
+D_x                              =  reshape(solution.incremental_solution(initial:final),dim,mesh.x0.n_nodes);
 solution.x.Eulerian_x            =  solution.x.Eulerian_x + D_x;
 %--------------------------------------------------------------------------
 % Update phi

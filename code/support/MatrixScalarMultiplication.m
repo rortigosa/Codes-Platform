@@ -6,10 +6,10 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function newmatrix         =  MatrixScalarMultiplication(dim,n_gauss,matrix,scalar)
+function newmatrix         =  MatrixScalarMultiplication(dimi,dimj,ngauss,matrix,scalar)
 
-newmatrix                  =  zeros(dim,dim,n_gauss);
-for igauss=1:n_gauss
+newmatrix                  =  zeros(dimi,dimj,ngauss);
+for igauss=1:ngauss
     newmatrix(:,:,igauss)  =  matrix(:,:,igauss)*scalar(igauss);
 end
 

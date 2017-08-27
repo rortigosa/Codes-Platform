@@ -6,11 +6,11 @@
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
-function newmatrix         =  MatrixMatrixMultiplication(dimi,dimj,n_gauss,matrixA,matrixB)
+function newvector         =  VectorScalarMultiplication(dim,ngauss,vector,scalar)
 
-newmatrix                  =  zeros(dimi,dimj,n_gauss);
-for igauss=1:n_gauss
-    newmatrix(:,:,igauss)  =  matrixA(:,:,igauss)*matrixB(:,:,igauss);
+newvector                  =  zeros(dim,ngauss);
+for igauss=1:ngauss
+    newvector(:,igauss)    =  vector(:,igauss)*scalar(igauss);
 end
 
 

@@ -19,7 +19,8 @@ str                                    =  NeumannBcs(str);
 switch str.data.analysis
     case 'static'
          %-----------------------------------------------------------------
-         % Difference between the Neumann forces vectors between each load increment
+         % Difference between the Neumann forces vectors between each load
+         % increment  
          %-----------------------------------------------------------------
          former_force_vector           =  (str.NR.accumulated_factor - str.NR.load_factor)*str.bc.Neumann.force_vector;
          str.bc.Neumann.force_vector   =  str.NR.accumulated_factor*str.bc.Neumann.force_vector;
