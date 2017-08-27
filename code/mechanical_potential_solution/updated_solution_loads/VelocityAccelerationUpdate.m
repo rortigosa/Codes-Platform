@@ -1,5 +1,5 @@
 
-function solution                         =  VelocityAccelerationUpdate(time_integrator,solution)
+function solution                         =  VelocityAccelerationUpdate(time_integrator,solution,Dx)
 
 switch time_integrator.type
     case {'Newmark_beta','generalised_alpha'}
@@ -9,6 +9,6 @@ switch time_integrator.type
          v_factor                         =  gamma/(beta*Dt);
          a_factor                         =  1/(beta*Dt^2);
          
-         solution.x.Eulerian_x_dot       =  solution.x.Eulerian_x_dot + D_x*v_factor;    
-         solution.x.Eulerian_x_dot_dot   =  solution.x.Eulerian_x_dot_dot + D_x*a_factor;    
+         solution.x.Eulerian_x_dot       =  solution.x.Eulerian_x_dot + Dx*v_factor;    
+         solution.x.Eulerian_x_dot_dot   =  solution.x.Eulerian_x_dot_dot + Dx*a_factor;    
 end

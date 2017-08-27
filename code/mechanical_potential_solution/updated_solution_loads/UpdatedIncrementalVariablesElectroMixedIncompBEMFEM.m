@@ -13,7 +13,7 @@ function solution                =  UpdatedIncrementalVariablesElectroMixedIncom
 %--------------------------------------------------------------------------
 initial                          =  1;
 final                            =  dim*mesh.volume.x.n_nodes;
-D_x                              =  reshape(solution.incremental_solution(initial:final),dim,mesh.x0.n_nodes);
+D_x                              =  reshape(solution.incremental_solution(initial:final),dim,mesh.volume.x.n_nodes);
 solution.x.Eulerian_x            =  solution.x.Eulerian_x + D_x;
 %--------------------------------------------------------------------------
 % Update phi
@@ -51,7 +51,7 @@ end
 %--------------------------------------------------------------------------
 % Velocity and acceleration in dynamic problems
 %--------------------------------------------------------------------------
-solution                         =  VelocityAccelerationUpdate(time_integrator,solution);
+solution                         =  VelocityAccelerationUpdate(time_integrator,solution,D_x);
 
 %--------------------------------------------------------------------------
 % Static condensation procedure to get (F,H,J,D0,d) and 
